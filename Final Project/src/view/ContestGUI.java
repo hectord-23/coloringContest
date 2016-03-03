@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 	
 public class ContestGUI extends JFrame implements Observer {
+	/** A generated Serial Version UID. */
+	private static final long serialVersionUID = 1L;
 	private final JPanel myIntroPanel;
 	private final JPanel mySubmitPanel;
 	private final JPanel myAdminPanel;
@@ -42,11 +44,11 @@ public class ContestGUI extends JFrame implements Observer {
 	private void setUp() {
 		setLayout(myLayout);
 		setBackground(Color.WHITE);
+		setSize(1000, 1000);
 		final Toolkit kit = Toolkit.getDefaultToolkit();
 		setLocation((int) (kit.getScreenSize().getWidth() / 2 - getWidth() / 2),
 				(int) (kit.getScreenSize().getHeight() / 2 - getHeight() / 2));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1000, 1000);
 		add(myIntroPanel);
 		setVisible(true);
 	}

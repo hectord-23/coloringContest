@@ -85,17 +85,17 @@ public class IntroPanel extends Observable {
 	private JPanel getDetails() {
 		final JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-//		try {
-//			Scanner input = new Scanner(new File("./extras/Coloring_Contest_Details"));
-//			JLabel label = new JLabel();
-//			StringBuilder s = new StringBuilder();
-//			while (input.hasNextLine()) {
-//				s.append(input.nextLine() + "\n");
-//			}
-//			panel.add(new JLabel(s.toString()));
-//		} catch (FileNotFoundException e) {
-//			System.err.println("File not found");
-//		}
+		try {
+			Scanner input = new Scanner(new File("./extras/Coloring_Contest_Details"));
+			JLabel label = new JLabel();
+			StringBuilder s = new StringBuilder();
+			while (input.hasNextLine()) {
+				s.append(input.nextLine() + "\n\r");
+			}
+			panel.add(new JLabel(s.toString()));
+		} catch (FileNotFoundException e) {
+			System.err.println("File not found");
+		}
 		return panel;
 	}
 	
