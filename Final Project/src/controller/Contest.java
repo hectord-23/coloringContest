@@ -6,15 +6,19 @@ import java.util.ArrayList;
 
 public class Contest {
 	
-	private String adminlogin = "admin";
-	private String adminpassword = "password";
+	private String adminlogin;
+	private String adminpassword;
 	private boolean isLoggedIn;
 	
-	private ArrayList<Image> templates = new ArrayList<Image>();
-	private ArrayList<Contestant> submissions = new ArrayList<Contestant>();
+	private ArrayList<Image> templates;
+	private ArrayList<Contestant> submissions;
 	
 	//constructor
 	public Contest(){ 
+		
+		adminlogin = "admin";
+		adminpassword = "password";
+		
 		templates = getTemplates();
 		submissions = getSubmissions();
 	}
