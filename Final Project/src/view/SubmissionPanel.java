@@ -1,7 +1,19 @@
 package view;
 
 import java.awt.Panel;
+import java.util.Observable;
 
-public class SubmissionPanel extends Panel {
+import javax.swing.JPanel;
 
+public class SubmissionPanel extends Observable {
+	private final JPanel myPanel;
+	
+	public SubmissionPanel() {
+		myPanel = new JPanel();
+	}
+	
+	public JPanel getPanel() {
+		return myPanel;
+	}
+	
 }
