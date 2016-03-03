@@ -1,5 +1,7 @@
 package view;
 
-public class IntroPanel {
+import javax.swing.JPanel;
+
+public class IntroPanel extends JPanel {
 
 }
