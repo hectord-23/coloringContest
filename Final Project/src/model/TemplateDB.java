@@ -1,3 +1,9 @@
+/* 
+ * Class to get the coloring templates.
+ * Author: Hector Diaz Contreras
+ * Date Last Edited: 03/03/2016 
+ */
+
 package model;
 
 import java.awt.Image;
@@ -7,6 +13,12 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+/** 
+ * A class to get the coloring templates.
+ * @author Hector Diaz Contreras.
+ * @version 1.0 (03/03-2016)
+ *
+ */
 public class TemplateDB {
 	
 	private ArrayList<Image> templates;
@@ -38,6 +50,18 @@ public class TemplateDB {
         } catch (IOException e){
             e.printStackTrace();
         }
+	}
+	
+	/** 
+	 * Gets a copy of the ArrayList of the image templates.
+	 * @return A copy of the ArrayLust of the image templates.
+	 */
+	public ArrayList<Image> getTemplates() {
+		ArrayList<Image> temp = new ArrayList<Image>();
+		for(int i = 0; i < templates.size(); i++) {
+			temp.add(templates.get(i));
+		}
+		return temp;
 	}
 	
 	
