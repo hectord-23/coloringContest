@@ -21,8 +21,10 @@ import javax.imageio.ImageIO;
  */
 public class TemplateDB {
 	
+	/** A private ArrayList of the contest templates. */
 	private ArrayList<Image> templates;
 	
+	/** Constructor class. */
 	public TemplateDB() {
 		templates = new ArrayList<Image>();
 		addTemplates();
@@ -39,7 +41,7 @@ public class TemplateDB {
             Image template4 = ImageIO.read(new File("extras/Templates/Mario.jpg"));
             Image template5 = ImageIO.read(new File("extras/Templates/Start.jpg"));
             
-            // Adding them to the templates list.
+            // Adding them to the templates Arraylist.
             templates.add(template0);
             templates.add(template1);
             templates.add(template2);
