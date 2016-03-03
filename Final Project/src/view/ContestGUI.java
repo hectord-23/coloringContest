@@ -34,11 +34,13 @@ public class ContestGUI extends JFrame implements Observer {
 		myAdminPanel = adminPanel.getPanel();
 		myTemplatePanel = templatePanel.getPanel();
 		myLayout = new CardLayout();
+		
 		setUp();
+		setUpLayoutManager();
 	}
 
 	private void setUp() {
-		setLayout(new CardLayout());
+		setLayout(myLayout);
 		setBackground(Color.WHITE);
 		final Toolkit kit = Toolkit.getDefaultToolkit();
 		setLocation((int) (kit.getScreenSize().getWidth() / 2 - getWidth() / 2),
@@ -47,9 +49,14 @@ public class ContestGUI extends JFrame implements Observer {
 		setSize(1000, 1000);
 		add(myIntroPanel);
 		setVisible(true);
-		
 	}
 	
+	private void setUpLayoutManager() {
+		myLayout.addLayoutComponent(myIntroPanel, "INTRO");
+		myLayout.addLayoutComponent(mySubmitPanel, "SUBMIT");
+		myLayout.addLayoutComponent(myTemplatePanel, "TEMPLATES");
+		myLayout.addLayoutComponent(myAdminPanel, "ADMIN");
+	}
 	
 	
 	
@@ -58,8 +65,20 @@ public class ContestGUI extends JFrame implements Observer {
 	}
 
 	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
+	public void update(Observable arg0, Object theObject) {
+		if (theObject instanceof String) {
+			String input = (String) theObject;
+			switch (input) {
+				case "INTRO":
+				case "SUBMIT":
+				case "TEMPLATES":
+				case "ADMIN": {
+					System.out.println(input);
+					System.out.println(myLayout.toString());
+					myLayout.show(getContentPane(), input);
+				}
+			}
+		}
 		
 	}
 }

@@ -52,7 +52,7 @@ public class IntroPanel extends Observable {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
 				setChanged();
-				notifyObservers("DOWNLOAD");
+				notifyObservers("TEMPLATES");
 				clearChanged();
 			}
 		});

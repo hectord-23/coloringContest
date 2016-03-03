@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Panel;
 import java.util.Observable;
 
 import javax.swing.JPanel;
