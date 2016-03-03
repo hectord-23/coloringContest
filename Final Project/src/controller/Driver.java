@@ -1,5 +1,7 @@
 package controller;
 
+import model.TemplateDB;
+
 public class Driver {
 
 	public static void main(String[] args) {
@@ -10,7 +12,7 @@ public class Driver {
 		 *  2 - Get any submissions available
 		 */
 		Contest contest = new Contest();
-		
+		TemplateDB temp = new TemplateDB();
 		
 		
 	}
