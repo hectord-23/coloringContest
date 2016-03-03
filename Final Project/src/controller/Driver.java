@@ -1,17 +1,17 @@
 package controller;
 
-/**
- * 
- * @author Cody Cates
- * @date March 03, 2016
- */
 public class Driver {
 
-	/**
-	 * 
-	 * @param args
-	 */
 	public static void main(String[] args) {
+		
+		/**
+		 * Instantiate the contest, on startup a contest will:
+		 * 	1 - Get any templates available
+		 *  2 - Get any submissions available
+		 */
+		Contest contest = new Contest();
+		
+		
 		
 	}
 
