@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -17,6 +18,7 @@ public class ContestGUI extends JFrame implements Observer {
 	private final JPanel myAdminPanel;
 	private final JPanel myTemplatePanel;
 	private final CardLayout myLayout;
+	private final JPanel cardPanel;
 	
 	public ContestGUI() {
 		super("TCSS 360 - Fist Full of Java");
@@ -35,22 +37,25 @@ public class ContestGUI extends JFrame implements Observer {
 		mySubmitPanel = submitPanel.getPanel();
 		myAdminPanel = adminPanel.getPanel();
 		myTemplatePanel = templatePanel.getPanel();
-		myLayout = new CardLayout();
-		
+		myLayout = new CardLayout(5, 5);
+		cardPanel = new JPanel();
 		setUp();
 		setUpLayoutManager();
+		setVisible(true);
 	}
 
 	private void setUp() {
-		setLayout(myLayout);
+//		setLayout(myLayout);
 		setBackground(Color.WHITE);
 		setSize(1000, 1000);
 		final Toolkit kit = Toolkit.getDefaultToolkit();
 		setLocation((int) (kit.getScreenSize().getWidth() / 2 - getWidth() / 2),
 				(int) (kit.getScreenSize().getHeight() / 2 - getHeight() / 2));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		add(myIntroPanel);
-		setVisible(true);
+		cardPanel.setLayout(myLayout);
+		cardPanel.setOpaque(true);
+		add(cardPanel, BorderLayout.CENTER);
+//		add(myIntroPanel);
 	}
 	
 	private void setUpLayoutManager() {
@@ -58,6 +63,7 @@ public class ContestGUI extends JFrame implements Observer {
 		myLayout.addLayoutComponent(mySubmitPanel, "SUBMIT");
 		myLayout.addLayoutComponent(myTemplatePanel, "TEMPLATES");
 		myLayout.addLayoutComponent(myAdminPanel, "ADMIN");
+		myLayout.show(cardPanel, "INTRO");
 	}
 	
 	
@@ -78,6 +84,7 @@ public class ContestGUI extends JFrame implements Observer {
 					System.out.println(input);
 					System.out.println(myLayout.toString());
 					myLayout.show(getContentPane(), input);
+//					myLayout.next(getContentPane());
 				}
 			}
 		}
