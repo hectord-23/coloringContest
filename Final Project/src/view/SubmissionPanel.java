@@ -56,9 +56,9 @@ public class SubmissionPanel extends Observable {
 		panel.setBackground(Color.WHITE);
 		panel.add(addPanel("First Name: "));
 		panel.add(addPanel("Last Name: "));
-		panel.add(addPanel("Age: "));
-		panel.add(addPanel("Phone: "));
-		panel.add(addPanel("Email: "));
+		panel.add(addPanel("           Age: "));
+		panel.add(addPanel("      Phone: "));
+		panel.add(addPanel("        Email: "));
 		panel.add(addPanel("Library ID#: "));
 		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		myPanel.add(panel);
@@ -90,10 +90,10 @@ public class SubmissionPanel extends Observable {
 		panel.setBackground(Color.WHITE);
 		panel.add(label);
 		switch (theLabel) {
-			case "Phone: ": {
+			case "      Phone: ": {
 				panel.add(myPhone);
 				break;
-			} case "Email: ": {
+			} case "        Email: ": {
 				panel.add(myEmail);
 				break;
 			} case "Library ID#: ": {
@@ -105,7 +105,7 @@ public class SubmissionPanel extends Observable {
 			} case "Last Name: ": {
 				panel.add(myLastName);
 				break;
-			} case "Age: ": {
+			} case "           Age: ": {
 				panel.add(myAge);
 				break;
 			}
