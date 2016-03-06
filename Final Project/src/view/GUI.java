@@ -82,7 +82,7 @@ public class GUI extends JFrame implements Observer {
 	 */
 	private void setUp() {
 		setBackground(Color.WHITE);
-		setSize(600, 600);
+		setSize(600, 700);
 		final Toolkit kit = Toolkit.getDefaultToolkit();
 		setLocation((int) (kit.getScreenSize().getWidth() / 2 - getWidth() / 2),
 				(int) (kit.getScreenSize().getHeight() / 2 - getHeight() / 2));

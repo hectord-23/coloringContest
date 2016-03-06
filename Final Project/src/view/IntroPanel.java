@@ -17,6 +17,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
 public class IntroPanel extends Observable {
@@ -91,7 +93,11 @@ public class IntroPanel extends Observable {
 	
 	private JPanel getDetails() {
 		final JPanel panel = new JPanel();
+		final JScrollBar bar = new JScrollBar(JScrollBar.VERTICAL);
 		final JLabel label = new JLabel();
+		final JScrollPane pane = new JScrollPane(label);
+		pane.setVerticalScrollBar(pane.createVerticalScrollBar());
+//		label.add(bar);
 		panel.setBackground(Color.WHITE);
 		final StringBuilder result = new StringBuilder();
 		result.append("<html>");
