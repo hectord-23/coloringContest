@@ -29,25 +29,63 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * This class represents the submission panel where the user can enter in their information,
+ * upload an image, and submit an entry for the coloring contest.
+ * 
+ * @author Jonah Howard
+ * @version 3 March 2016
+ */
 public class SubmissionPanel extends Observable {
+	
+	/** The font for this panel. */
 	public static final Font LABEL_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 20);
+	
+	/** Represents the length of all of the text boxes. */
 	public static final int DEFAULT_CHARACTERS = 20;
 	
+	/** Text field for the first name. */
 	private final JTextField myFirstName;
+	
+	/** The text field for the last name. */
 	private final JTextField myLastName;
+	
+	/** The text field for the age. */
 	private final JTextField myAge;
+	
+	/** The text field for the phone. */
 	private final JTextField myPhone;
+	
+	/** The text field for the phone. */
 	private final JTextField myEmail;
+	
+	/** The text field for the library ID number. */
 	private final JTextField myID;
-	private final JTextField myFileTextField;
+	
+	/** The file chooser to upload an image. */
 	private final JFileChooser myFileChooser;
+	
+	/** Check box indicating whether the user has read the terms and conditions. */
 	private final JCheckBox myCheckBox;
+	
+	/** A list of all of the text fields. */
 	private final List<JTextField> myTextFields;
+	
+	/** Holds and displays a small preview of the currently uploaded image. */
+	private final JLabel myIconLabel;
+	
+	/** The currently selected image, null if no image has been selected. */
 	private ImageIcon myImage = null;
+	
+	/** The current file for the uploaded image. */
 	private String myFile;
 	
+	/** The current panel. */
 	private final JPanel myPanel;
 	
+	/**
+	 * Initialize a new submissions panel.
+	 */
 	public SubmissionPanel() {
 		myPanel = new JPanel();
 		myFirstName = new JTextField(DEFAULT_CHARACTERS);
@@ -56,15 +94,18 @@ public class SubmissionPanel extends Observable {
 		myPhone = new JTextField(DEFAULT_CHARACTERS);
 		myEmail = new JTextField(DEFAULT_CHARACTERS);
 		myID = new JTextField(DEFAULT_CHARACTERS);
-		myFileTextField = new JTextField(DEFAULT_CHARACTERS);
 		myFileChooser = new JFileChooser("./extras/templates");
 		myTextFields = new ArrayList<JTextField>();
 		myCheckBox = new JCheckBox();
+		myIconLabel = new JLabel();
 		addTextFields();
-		setUp();
+		addComponents();
 	}
 	
-	private void setUp() {
+	/**
+	 * Adds all of the components to this panel.
+	 */
+	private void addComponents() {
 		myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
 		myPanel.setBackground(Color.WHITE);
 		myPanel.add(createHeader());
@@ -84,11 +125,15 @@ public class SubmissionPanel extends Observable {
 		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		myPanel.add(panel);
 		myPanel.add(Box.createVerticalStrut(10));
-//		myPanel.add(new JLabel("Please enter your information below"));
 		// Or this way
 		myPanel.add(createUpload());
 	}
 	
+	/**
+	 * Creates and returns the panel allowing the user to select and upload an image.
+	 * 
+	 * @return the panel containing the interface to allow the user to upload an image
+	 */
 	private JPanel createUpload() {
 		final JPanel panel = new JPanel(new BorderLayout());
 		final JPanel filePanel = new JPanel(new FlowLayout());
@@ -96,8 +141,7 @@ public class SubmissionPanel extends Observable {
 		final JPanel termsConditions = new JPanel();
 		
 		final JLabel filler = new JLabel();
-		final JLabel file = new JLabel("File");
-		final JLabel top = new JLabel("Upload a File");
+		final JLabel top = new JLabel("Upload a Image");
 		final JLabel image = new JLabel();
 		final JLabel terms = new JLabel("I have read and understand the");
 		
@@ -106,7 +150,8 @@ public class SubmissionPanel extends Observable {
 		final JButton submit = new JButton("Submit");
 		final JButton cancel = new JButton("Cancel");
 		
-		addBrowseListener(browse, image);
+		// Format all componenents
+		addBrowseListener(browse);
 		assignSubmit(submit);
 		assignGoHome(cancel);
 		
@@ -115,12 +160,11 @@ public class SubmissionPanel extends Observable {
 		bottom.setBackground(Color.WHITE);
 		
 		filePanel.setSize(new Dimension(600, 200));
-		filePanel.add(file);
-		filePanel.add(image);
+		filePanel.add(top);
+		filePanel.add(myIconLabel);
 		filePanel.add(browse);
 		filePanel.setBackground(Color.WHITE);
 		
-		file.setFont(LABEL_FONT);
 		top.setFont(LABEL_FONT);
 		terms.setFont(LABEL_FONT);
 		
@@ -136,7 +180,8 @@ public class SubmissionPanel extends Observable {
 		termsConditions.add(filler);
 		termsConditions.add(conditions);
 		
-		panel.add(top);
+		// Add all components to the main panel for this section
+//		panel.add(top);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.setBackground(Color.WHITE);
 		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -147,6 +192,11 @@ public class SubmissionPanel extends Observable {
 		return panel;
 	}
 	
+	/**
+	 * Sets the action listener for the submit button.
+	 * 
+	 * @param button the button being assigned the action listener
+	 */
 	private void assignSubmit(final JButton button) {
 		button.addActionListener(new ActionListener() {
 			@Override
@@ -174,7 +224,12 @@ public class SubmissionPanel extends Observable {
 		});
 	}
 	
-	private void addBrowseListener(final JButton browse, final JLabel image) {
+	/**
+	 * Sets the action listener for the Browse button. 
+	 * 
+	 * @param browse the button being assigned the action listener
+	 */
+	private void addBrowseListener(final JButton browse) {
 		browse.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
@@ -184,7 +239,7 @@ public class SubmissionPanel extends Observable {
 						File file = myFileChooser.getSelectedFile();
 						myImage = new ImageIcon(ImageIO.read(file));
 						Image img = ImageIO.read(file);
-						image.setIcon(new ImageIcon(img.getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
+						myIconLabel.setIcon(new ImageIcon(img.getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
 					} catch (final IOException e) {
 		                JOptionPane.showMessageDialog(null, 
                                 "The selected file did not contain an image!",
@@ -195,6 +250,9 @@ public class SubmissionPanel extends Observable {
 		});
 	}
 	
+	/**
+	 * Adds all of the text fields to the list of text fields.
+	 */
 	private void addTextFields() {
 		myTextFields.add(myFirstName);
 		myTextFields.add(myLastName);
@@ -204,21 +262,12 @@ public class SubmissionPanel extends Observable {
 		myTextFields.add(myID);
 	}
 	
-	private JPanel createCenter() {
-		final JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		final JPanel names = createNamesPanel();
-		final JPanel contact = createContactPanel();
-		final JPanel upload = new JPanel();
-		
-		panel.setBackground(Color.WHITE);
-		panel.add(Box.createVerticalStrut(15));
-		panel.add(names);
-		panel.add(Box.createVerticalStrut(25));
-		panel.add(contact);
-		return panel;
-	}
-	
+	/**
+	 * Returns a panel containing the passed label and a text field.
+	 * 
+	 * @param theLabel the label being assigned
+	 * @return the panel with its label and text field
+	 */
 	private JPanel addPanel(final String theLabel) {
 		final JPanel panel = new JPanel();
 		final JLabel label = new JLabel(theLabel);
@@ -249,86 +298,11 @@ public class SubmissionPanel extends Observable {
 		return panel;
 	}
 	
-	private JPanel createContactPanel() {
-		final JPanel panel = new JPanel();
-		final JPanel first = new JPanel(new FlowLayout());
-		final JPanel second = new JPanel(new FlowLayout());
-		final JPanel third = new JPanel(new FlowLayout());
-		
-		final JLabel phone = new JLabel("Phone: ");
-		final JLabel email = new JLabel("Email: ");
-		final JLabel libId = new JLabel("Library ID#: ");
-		
-		
-		phone.setFont(LABEL_FONT);
-		email.setFont(LABEL_FONT);
-		libId.setFont(LABEL_FONT);
-		
-		first.setBackground(Color.WHITE);
-		first.add(phone);
-		first.add(myPhone);
-		
-		second.setBackground(Color.WHITE);
-		second.add(email);
-		second.add(myEmail);
-		
-		third.setBackground(Color.WHITE);
-		third.add(libId);
-		third.add(myID);
-		
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		panel.setBackground(Color.WHITE);
-		panel.add(first);
-		panel.add(second);
-		panel.add(third);
-		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		
-		return panel;
-	}
-	
 	/**
-	 * Adds all the components to the names panel. 
+	 * Assign an action listener for the Go Home and Cancel buttons
 	 * 
-	 * @return the panel that stores contestant's name and age
+	 * @param button the button being assigned
 	 */
-	private JPanel createNamesPanel() {
-		final JPanel panel = new JPanel();
-		final JPanel first = new JPanel(new FlowLayout());
-		final JPanel second = new JPanel(new FlowLayout());
-		final JPanel third = new JPanel(new FlowLayout());
-		final JPanel filler = new JPanel();
-		
-		final JLabel firstName = new JLabel("First Name: ");
-		final JLabel lastName = new JLabel("Last Name: ");
-		final JLabel age = new JLabel("Age: ");
-
-		firstName.setFont(LABEL_FONT);
-		lastName.setFont(LABEL_FONT);
-
-		first.add(firstName);
-		first.add(myFirstName);
-		first.setBackground(Color.WHITE);
-
-		second.add(lastName);
-		second.add(myLastName);
-		second.setBackground(Color.WHITE);
-		
-		third.add(age);
-		third.add(myAge);
-		third.setBackground(Color.WHITE);
-
-		panel.setLayout(new GridLayout(2, 2));
-		panel.add(first);
-		panel.add(filler);
-		panel.add(second);
-		panel.add(third);
-		panel.setBackground(Color.WHITE);
-		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		
-		filler.setBackground(Color.WHITE);
-		return panel;
-	}
-	
 	private void assignGoHome(final JButton button) {
 		button.addActionListener(new ActionListener() {
 			@Override
@@ -336,10 +310,23 @@ public class SubmissionPanel extends Observable {
 				setChanged();
 				notifyObservers(GUI.INTRO);
 				clearChanged();
+				// Reset all fields
+				for (final JTextField current : myTextFields) {
+					current.setText("");
+					current.setBackground(Color.WHITE);
+				}
+				myImage = null;
+				myCheckBox.setSelected(false);
+				myIconLabel.setIcon(null);
 			}
 		}); 
 	}
 	
+	/**
+	 * Create the header panel.
+	 * 
+	 * @return the header panel.
+	 */
 	private JPanel createHeader() {
 		final JPanel panel = new JPanel();
 		panel.setMaximumSize(new Dimension(600, 150));
@@ -362,6 +349,11 @@ public class SubmissionPanel extends Observable {
 		return panel;
 	}
 	
+	/**
+	 * Get the submission panel.
+	 * 
+	 * @return the submission panel
+	 */
 	public JPanel getPanel() {
 		return myPanel;
 	}
