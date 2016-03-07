@@ -142,6 +142,8 @@ public class GUI extends JFrame implements Observer {
 		final String parsedPassword = new String(pass.getPassword());
 		if (option == 0 && AdminPanel.PASSWORD.equals(parsedPassword) && AdminPanel.USERNAME.equals(user.getText())) {
 			return true;
+		} else if (option == 0){						
+			JOptionPane.showMessageDialog(this, "Incorrect login information, please try again");
 		}
 		return false;
 	}
@@ -171,8 +173,6 @@ public class GUI extends JFrame implements Observer {
 					if (createLoginDialog()) {
 						myLayout.show(cardPanel, input);
 						cardPanel.revalidate();
-					} else {
-						JOptionPane.showMessageDialog(this, "Incorrect login information, please try again");
 					}
 					break;
 				}
