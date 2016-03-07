@@ -4,15 +4,22 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 	
 public class GUI extends JFrame implements Observer {
+	
 	/** A generated Serial Version UID. */
 	private static final long serialVersionUID = 1L;
 	
@@ -108,6 +115,36 @@ public class GUI extends JFrame implements Observer {
 		cardPanel.revalidate();
 	}
 	
+	/**
+	 * Creates the dialog that prompts the user to enter administrator credentials.
+	 * 
+	 * @return true if correct login information was entered
+	 */
+	private boolean createLoginDialog() {
+		final JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
+		final JPanel passPanel = new JPanel(new FlowLayout());
+		final JPanel userPanel = new JPanel(new FlowLayout());
+		final JLabel username = new JLabel("Username: ");
+		final JLabel password = new JLabel("Passowrd: ");
+		final JTextField user = new JTextField(10);
+		final JPasswordField pass = new JPasswordField(10);
+		final String[] options = new String[]{"OK", "Cancel"};
+		passPanel.add(password);
+		passPanel.add(pass);
+		userPanel.add(username);
+		userPanel.add(user);
+		panel.add(userPanel);
+		panel.add(passPanel);
+		int option = JOptionPane.showOptionDialog(this, panel, "Login",
+				JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+				null, options, options[1]);
+		final String parsedPassword = new String(pass.getPassword());
+		if (option == 0 && AdminPanel.PASSWORD.equals(parsedPassword) && AdminPanel.USERNAME.equals(user.getText())) {
+			return true;
+		}
+		return false;
+	}
 	
 	/**
 	 * Main method to be deleted. Used for interface testing purposes.
@@ -126,10 +163,18 @@ public class GUI extends JFrame implements Observer {
 			switch (input) {
 				case "INTRO":
 				case "SUBMIT":
-				case "TEMPLATES":
-				case "ADMIN": {
+				case "TEMPLATES": {
 					myLayout.show(cardPanel, input);
 					cardPanel.revalidate();
+					break;
+				} case "ADMIN": {
+					if (createLoginDialog()) {
+						myLayout.show(cardPanel, input);
+						cardPanel.revalidate();
+					} else {
+						JOptionPane.showMessageDialog(this, "Incorrect login information, please try again");
+					}
+					break;
 				}
 			}
 		}

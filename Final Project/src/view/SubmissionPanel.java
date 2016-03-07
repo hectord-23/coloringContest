@@ -65,6 +65,9 @@ public class SubmissionPanel extends Observable {
 	/** The file chooser to upload an image. */
 	private final JFileChooser myFileChooser;
 	
+	/** The go home button. */
+	private final JButton myGoHome;
+	
 	/** Check box indicating whether the user has read the terms and conditions. */
 	private final JCheckBox myCheckBox;
 	
@@ -95,6 +98,7 @@ public class SubmissionPanel extends Observable {
 		myTextFields = new ArrayList<JTextField>();
 		myCheckBox = new JCheckBox();
 		myIconLabel = new JLabel();
+		myGoHome = new JButton("Go Home");
 		addTextFields();
 		addComponents();
 	}
@@ -215,6 +219,15 @@ public class SubmissionPanel extends Observable {
 					setChanged();
 					notifyObservers(info);
 					clearChanged();
+					JOptionPane.showMessageDialog(myPanel, "Submission successful, going back to the home page.", "Submission Successful!", JOptionPane.INFORMATION_MESSAGE);
+					for (final JTextField current : myTextFields) {
+						current.setBackground(Color.WHITE);
+						current.setText("");
+					}
+					myImage = null;
+					myCheckBox.setSelected(false);
+					myIconLabel.setIcon(null);
+					myGoHome.doClick();
 				}
 			}
 		});
@@ -332,15 +345,14 @@ public class SubmissionPanel extends Observable {
 		final Font font = new Font(Font.SANS_SERIF, Font.BOLD, 15);
 		final JLabel left = new JLabel("<html>Clark<br>County<br>Library<html>");
 		final JLabel center = new JLabel("<html>Coloring<br>Contest<br>Submission<html>");
-		final JButton button = new JButton("Go Home");
-		assignGoHome(button);
+		assignGoHome(myGoHome);
 
 		left.setFont(font);
 		center.setFont(font);
 		
 		panel.add(left);
 		panel.add(center);
-		panel.add(button);
+		panel.add(myGoHome);
 		return panel;
 	}
 	

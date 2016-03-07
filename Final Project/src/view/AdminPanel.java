@@ -14,9 +14,12 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,6 +30,12 @@ import javax.swing.table.DefaultTableModel;
  * @version 6 March 2016
  */
 public class AdminPanel extends Observable {
+	
+	/** The username for the administrator. */
+	protected static final String USERNAME = "username";
+	
+	/** The password for the administrator. */
+	protected static final String PASSWORD = "password";
 	
 	/** Panel that holds all components for this page. */
 	private JPanel myPanel;
@@ -42,6 +51,7 @@ public class AdminPanel extends Observable {
 	
 	/** The column names for this table. */
 	private Object[] myColumnNames;
+	
 //	private final List<Contestant> myContestants;
 	
 	/**
@@ -132,7 +142,7 @@ public class AdminPanel extends Observable {
 		final Font font = new Font(Font.SANS_SERIF, Font.BOLD, 15);
 		final JLabel left = new JLabel("<html>Clark<br>County<br>Library<html>");
 		final JLabel center = new JLabel("<html>Coloring<br>Contest<br>Submission<html>");
-		final JButton button = new JButton("Go Home");
+		final JButton button = new JButton("Logout");
 		assignGoHome(button);
 
 		left.setFont(font);
