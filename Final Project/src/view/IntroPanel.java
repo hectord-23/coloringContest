@@ -19,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import javax.swing.border.Border;
 
 public class IntroPanel extends Observable {
 	private final JPanel myPanel;

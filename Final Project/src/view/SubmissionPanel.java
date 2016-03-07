@@ -77,9 +77,6 @@ public class SubmissionPanel extends Observable {
 	/** The currently selected image, null if no image has been selected. */
 	private ImageIcon myImage = null;
 	
-	/** The current file for the uploaded image. */
-	private String myFile;
-	
 	/** The current panel. */
 	private final JPanel myPanel;
 	
@@ -135,14 +132,13 @@ public class SubmissionPanel extends Observable {
 	 * @return the panel containing the interface to allow the user to upload an image
 	 */
 	private JPanel createUpload() {
-		final JPanel panel = new JPanel(new BorderLayout());
+		final JPanel panel = new JPanel();
 		final JPanel filePanel = new JPanel(new FlowLayout());
 		final JPanel bottom = new JPanel(new FlowLayout());
 		final JPanel termsConditions = new JPanel();
 		
 		final JLabel filler = new JLabel();
-		final JLabel top = new JLabel("Upload a Image");
-		final JLabel image = new JLabel();
+		final JLabel top = new JLabel("Upload an Image");
 		final JLabel terms = new JLabel("I have read and understand the");
 		
 		final JButton browse = new JButton("Browse");
@@ -150,7 +146,7 @@ public class SubmissionPanel extends Observable {
 		final JButton submit = new JButton("Submit");
 		final JButton cancel = new JButton("Cancel");
 		
-		// Format all componenents
+		// Format all components
 		addBrowseListener(browse);
 		assignSubmit(submit);
 		assignGoHome(cancel);
@@ -235,7 +231,6 @@ public class SubmissionPanel extends Observable {
 			public void actionPerformed(final ActionEvent theEvent) {
 				if (myFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 					try {
-						myFile = myFileChooser.getSelectedFile().getPath();
 						File file = myFileChooser.getSelectedFile();
 						myImage = new ImageIcon(ImageIO.read(file));
 						Image img = ImageIO.read(file);

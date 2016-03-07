@@ -117,6 +117,7 @@ public class GUI extends JFrame implements Observer {
 	public static void main(String... theArgs) {
 		GUI gui = new GUI();
 	}
+	
 
 	@Override
 	public void update(Observable arg0, Object theObject) {
