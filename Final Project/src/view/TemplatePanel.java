@@ -4,21 +4,53 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import model.TemplateDB;
+
 public class TemplatePanel extends Observable {
 	private final JPanel myPanel;
+	private final List<ImageIcon> myTemplates;
+	private final List<JLabel> myLabels;
 	
 	public TemplatePanel() {
 		myPanel = new JPanel();
+		myTemplates = TemplateDB.getImageIconTemplates();
+		myLabels = new ArrayList<JLabel>();
+		addLabels();
+		addComponents();
+	}
+	
+	/**
+	 * Take all of the images from the templates and add them to the label list as smaller images.
+	 */
+	private void addLabels() {
+		for (final ImageIcon current : myTemplates) {
+			final Image img = current.getImage();
+			myLabels.add(new JLabel(new ImageIcon(img.getScaledInstance(100, 100, Image.SCALE_DEFAULT))));
+		}
+	}
+	
+	/**
+	 * Set up this panel and add all of its components.
+	 */
+	private void addComponents() {
+		myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
 		myPanel.add(createHeader());
+		myPanel.setBackground(Color.WHITE);
+		
 	}
 	
 	public JPanel getPanel() {

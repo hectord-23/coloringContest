@@ -40,8 +40,8 @@ public class IntroPanel extends Observable {
 	/** The current panel. */
 	private final JPanel myPanel;
 	
-	/** Scroll pane for the moves table. */
-    private JScrollPane scrollPane;
+	/** Scroll pane that allows the details panel to be scrollable. */
+    private final JScrollPane myScrollPane;
 	
 	/**
 	 * Initialize a new Intro Panel.
@@ -49,6 +49,7 @@ public class IntroPanel extends Observable {
 	public IntroPanel() {
 		myPanel = new JPanel();
 		myPanel.setBackground(Color.WHITE);
+		myScrollPane = new JScrollPane(getDetails());
 		setUpComponents();
 	}
 	
@@ -59,8 +60,7 @@ public class IntroPanel extends Observable {
 		final JPanel northPanel = new JPanel();
 		final JPanel centerPanel = new JPanel();
 //		final JPanel details = getDetails();
-		scrollPane = new JScrollPane(getDetails());
-		scrollPane.setPreferredSize(new Dimension(DETAILS_WIDTH, DETAILS_HEIGHT));
+		myScrollPane.setPreferredSize(new Dimension(DETAILS_WIDTH, DETAILS_HEIGHT));
 		final JPanel buttons = getButtonsPanel();
 		final JLabel label = new JLabel("Clark County Library Coloring Contest");
 
@@ -72,10 +72,10 @@ public class IntroPanel extends Observable {
 
 		centerPanel.setBackground(Color.WHITE);
 		centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 75, 0));//BoxLayout(centerPanel, BoxLayout.X_AXIS));
-		centerPanel.add(scrollPane);
+		centerPanel.add(myScrollPane);
 		centerPanel.add(buttons);
 
-		scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		myScrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		buttons.setBackground(Color.WHITE);
 		myPanel.add(northPanel, BorderLayout.NORTH);
@@ -131,7 +131,7 @@ public class IntroPanel extends Observable {
 	}
 	
 	/**
-	 * Returns the contest details panel. contestant.
+	 * Returns the contest details panel.
 	 * 
 	 * @return the contest details panel
 	 */
