@@ -29,10 +29,10 @@ import javax.swing.table.DefaultTableModel;
 public class AdminPanel extends Observable {
 	
 	/** The username for the administrator. */
-	protected static final String USERNAME = "username";
+	protected static final String USERNAME = "";
 	
 	/** The password for the administrator. */
-	protected static final String PASSWORD = "password";
+	protected static final String PASSWORD = "";
 	
 	/** Panel that holds all components for this page. */
 	private JPanel myPanel;

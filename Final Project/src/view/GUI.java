@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import model.TemplateDB;
 	
 public class GUI extends JFrame implements Observer {
 	
@@ -137,7 +139,7 @@ public class GUI extends JFrame implements Observer {
 		panel.add(userPanel);
 		panel.add(passPanel);
 		int option = JOptionPane.showOptionDialog(this, panel, "Login",
-				JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+				JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE,
 				null, options, options[1]);
 		final String parsedPassword = new String(pass.getPassword());
 		// Verify that correct credentials were entered
@@ -157,6 +159,7 @@ public class GUI extends JFrame implements Observer {
 	 * @param theArgs Command line arguments, to be ignored
 	 */
 	public static void main(final String... theArgs) {
+		TemplateDB db = new TemplateDB();
 		@SuppressWarnings("unused")
 		GUI gui = new GUI();
 	}

@@ -227,9 +227,9 @@ public class SubmissionPanel extends Observable {
                             "Error!", JOptionPane.ERROR_MESSAGE);
 				} else {
 					// Obtain relative path of file
-					String temp = myFile.toString().substring(myFile.toString().lastIndexOf('\\'), myFile.toString().length());
-					temp = "./extras/Contestant_Submission" + temp;
-					temp = temp.replace('\\', '/');
+//					String temp = myFile.toString().substring(myFile.toString().lastIndexOf('\\'), myFile.toString().length());
+//					temp = "./extras/Contestant_Submission" + temp;
+//					temp = temp.replace('\\', '/');
 					final Object[] contestant = {myFirstName.getText(), myLastName.getText(), 
 							myAge.getText(), myEmail.getText(), myPhone.getText(), 
 							myID.getText(), myImage.getImage()};

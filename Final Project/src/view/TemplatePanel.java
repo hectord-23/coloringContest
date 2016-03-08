@@ -4,17 +4,23 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -24,32 +30,19 @@ import model.TemplateDB;
 public class TemplatePanel extends Observable {
 	private final JPanel myPanel;
 	private final List<ImageIcon> myTemplates;
-	private final List<JLabel> myLabels;
 	private final JScrollPane myScrollPane;
+	private final List<JButton> myButtons;
+	private final Map<ImageIcon, ImageIcon> myIcons;
+	private final JFileChooser myFileChooser;
 	
 	public TemplatePanel() {
 		myPanel = new JPanel();
 		myTemplates = TemplateDB.getImageIconTemplates();
-		myLabels = new ArrayList<JLabel>();
-		addLabels();
-		addComponents();
+		myButtons = getButtons();
 		myScrollPane = new JScrollPane(getImages());
-	}
-	
-	private JPanel getImages() {
-		final JPanel panel = new JPanel();
-		
-		return panel;
-	}
-	
-	/**
-	 * Take all of the images from the templates and add them to the label list as smaller images.
-	 */
-	private void addLabels() {
-		for (final ImageIcon current : myTemplates) {
-			final Image img = current.getImage();
-			myLabels.add(new JLabel(new ImageIcon(img.getScaledInstance(100, 100, Image.SCALE_DEFAULT))));
-		}
+		myIcons = new HashMap<ImageIcon, ImageIcon>();
+		myFileChooser = new JFileChooser(new File("./extras/Downloads"));
+		addComponents();
 	}
 	
 	/**
@@ -57,11 +50,54 @@ public class TemplatePanel extends Observable {
 	 */
 	private void addComponents() {
 		myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
-		myPanel.add(createHeader());
 		myPanel.setBackground(Color.WHITE);
+
+		myPanel.add(createHeader());
+		myPanel.add(Box.createVerticalStrut(30));
+		myPanel.add(myScrollPane);
+		
+		myScrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		myScrollPane.setPreferredSize(new Dimension(600, 200));
+
 		
 	}
 	
+	private List<JButton> getButtons() {
+		final List<JButton> list = new ArrayList<JButton>();
+		for (final ImageIcon current : myTemplates) {
+			final JButton button = new JButton(current);
+			final Image img = current.getImage();
+			final ImageIcon smallImg = new ImageIcon(img.getScaledInstance(150, 150, Image.SCALE_DEFAULT));
+			list.add(new JButton(smallImg));
+			myIcons.put(smallImg, current);
+			button.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(final ActionEvent theEvent) {
+					myFileChooser.showSaveDialog(myPanel);
+				}
+			});
+		}
+		
+		return list;
+	}
+	
+	private JPanel getImages() {
+		final JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout((int) Math.ceil((double) myTemplates.size() / 3), 3, 5, 20));
+		panel.setBackground(Color.WHITE);
+		for (final JButton button : myButtons) {
+			button.setBackground(Color.WHITE);
+			button.setBorder(BorderFactory.createEmptyBorder());
+			panel.add(button);
+		}
+		return panel;
+	}
+	
+	/**
+	 * Get the current panel.
+	 * 
+	 * @return the current panel
+	 */
 	public JPanel getPanel() {
 		return myPanel;
 	}
