@@ -75,6 +75,9 @@ public class SubmissionPanel extends Observable {
 	/** Holds and displays a small preview of the currently uploaded image. */
 	private final JLabel myIconLabel;
 	
+	/** The file for the current image. */
+	private File myFile;
+	
 	/** The currently selected image, null if no image has been selected. */
 	private ImageIcon myImage = null;
 	
@@ -224,7 +227,7 @@ public class SubmissionPanel extends Observable {
 				} else {
 					final Object[] contestant = {myFirstName.getText(), myLastName.getText(), 
 							myAge.getText(), myEmail.getText(), myPhone.getText(), 
-							myID.getText(), myImage};
+							myID.getText(), myFile};
 					setChanged();
 					notifyObservers(contestant);
 					clearChanged();
@@ -257,9 +260,9 @@ public class SubmissionPanel extends Observable {
 			public void actionPerformed(final ActionEvent theEvent) {
 				if (myFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 					try {
-						File file = myFileChooser.getSelectedFile();
-						myImage = new ImageIcon(ImageIO.read(file));
-						Image img = ImageIO.read(file);
+						myFile = myFileChooser.getSelectedFile();
+						myImage = new ImageIcon(ImageIO.read(myFile));
+						Image img = ImageIO.read(myFile);
 						myIconLabel.setIcon(new ImageIcon(img.getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
 					} catch (final IOException e) {
 		                JOptionPane.showMessageDialog(null, 
