@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -95,7 +96,7 @@ public class SubmissionPanel extends Observable {
 		myPhone = new JTextField(DEFAULT_CHARACTERS);
 		myEmail = new JTextField(DEFAULT_CHARACTERS);
 		myID = new JTextField(DEFAULT_CHARACTERS);
-		myFileChooser = new JFileChooser("./extras/templates");
+		myFileChooser = new JFileChooser(".\\extras\\templates");
 		myTextFields = new ArrayList<JTextField>();
 		myCheckBox = new JCheckBox();
 		myIconLabel = new JLabel();
@@ -227,10 +228,11 @@ public class SubmissionPanel extends Observable {
 				} else {
 					final Object[] contestant = {myFirstName.getText(), myLastName.getText(), 
 							myAge.getText(), myEmail.getText(), myPhone.getText(), 
-							myID.getText(), myFile};
+							myID.getText(), myFile.toString()};
 					setChanged();
 					notifyObservers(contestant);
 					clearChanged();
+					URI temp  = myFile.toURI();
 					JOptionPane.showMessageDialog(myPanel, "Submission successful, "
 							+ "going back to the home page.", "Submission Successful!", 
 							JOptionPane.INFORMATION_MESSAGE);

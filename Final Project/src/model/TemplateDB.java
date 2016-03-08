@@ -22,11 +22,10 @@ import javax.imageio.ImageIO;
 public class TemplateDB {
 	
 	/** A private ArrayList of the contest templates. */
-	private ArrayList<Image> templates;
+	private final static ArrayList<Image> templates = new ArrayList<Image>();
 	
 	/** Constructor class. */
 	public TemplateDB() {
-		templates = new ArrayList<Image>();
 		addTemplates();
 	}
 	
@@ -34,12 +33,13 @@ public class TemplateDB {
 	private void addTemplates() {
 		try{
 			// The templates
-            Image template0 = ImageIO.read(new File("extras/Templates/Adult-Coloring-Pages-24.jpg"));
-            Image template1 = ImageIO.read(new File("extras/Templates/elephant-adult-coloring-page.jpg"));
-            Image template2 = ImageIO.read(new File("extras/Templates/Free-Coloring-Pages-9.jpg"));
-            Image template3 = ImageIO.read(new File("extras/Templates/Lion_Head_Adult_Coloring_Pages_01.jpg"));
-            Image template4 = ImageIO.read(new File("extras/Templates/Mario.jpg"));
-            Image template5 = ImageIO.read(new File("extras/Templates/Start.jpg"));
+			
+            final Image template0 = ImageIO.read(new File("extras/Templates/Adult-Coloring-Pages-24.jpg"));
+            final Image template1 = ImageIO.read(new File("extras/Templates/elephant-adult-coloring-page.jpg"));
+            final Image template2 = ImageIO.read(new File("extras/Templates/Free-Coloring-Pages-9.jpg"));
+            final Image template3 = ImageIO.read(new File("extras/Templates/Lion_Head_Adult_Coloring_Pages_01.jpg"));
+            final Image template4 = ImageIO.read(new File("extras/Templates/Mario.jpg"));
+            final Image template5 = ImageIO.read(new File("extras/Templates/Start.jpg"));
             
             // Adding them to the templates Arraylist.
             templates.add(template0);
@@ -58,7 +58,7 @@ public class TemplateDB {
 	 * Gets a copy of the ArrayList of the image templates.
 	 * @return A copy of the ArrayLust of the image templates.
 	 */
-	public ArrayList<Image> getTemplates() {
+	public static ArrayList<Image> getTemplates() {
 		ArrayList<Image> temp = new ArrayList<Image>();
 		for(int i = 0; i < templates.size(); i++) {
 			temp.add(templates.get(i));
