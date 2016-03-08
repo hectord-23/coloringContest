@@ -226,13 +226,17 @@ public class SubmissionPanel extends Observable {
                             + " terms and conditions,<br>and upload an image<html>",
                             "Error!", JOptionPane.ERROR_MESSAGE);
 				} else {
+					// Obtain relative path of file
+					String temp = myFile.toString().substring(myFile.toString().lastIndexOf('\\'), myFile.toString().length());
+					temp = "./extras/Downloads" + temp;
+					temp = temp.replace('\\', '/');
 					final Object[] contestant = {myFirstName.getText(), myLastName.getText(), 
 							myAge.getText(), myEmail.getText(), myPhone.getText(), 
-							myID.getText(), myFile.toString()};
+							myID.getText(), temp};
+					// Send to database
 					setChanged();
 					notifyObservers(contestant);
 					clearChanged();
-					URI temp  = myFile.toURI();
 					JOptionPane.showMessageDialog(myPanel, "Submission successful, "
 							+ "going back to the home page.", "Submission Successful!", 
 							JOptionPane.INFORMATION_MESSAGE);
