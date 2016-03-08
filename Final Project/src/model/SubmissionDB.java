@@ -5,6 +5,8 @@ import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -20,7 +22,7 @@ import controller.Contestant;
  * @author Cody Cates
  * @date March 3, 2016
  */
-public class SubmissionDB {
+public class SubmissionDB implements Observer {
 	
 	/** A master list to act as the back end data. */
 	private ArrayList<Contestant> mySubmissions;
@@ -94,6 +96,25 @@ public class SubmissionDB {
 	 * 
 	 */
 	public void save() {
+		
+	}
+
+	@Override
+	public void update(Observable arg0, Object theSubmission) {
+		// TODO Auto-generated method stub
+		String name = (String) ((Object[]) theSubmission)[0];
+		String lastName = (String) ((Object[]) theSubmission)[1];
+		String age = (String) ((Object[]) theSubmission)[2];
+		String email = (String) ((Object[]) theSubmission)[3];
+		String phone = (String) ((Object[]) theSubmission)[4];
+		String id = (String) ((Object[]) theSubmission)[5];
+		Image myImage = (Image) ((Object[]) theSubmission)[6];
+		addASubmission(name, lastName, age, email, phone, id, myImage);
+	}
+
+	private void addASubmission(String name, String lastName, String age, String email,
+			String phone, String id, Image myImage) {
+		// TODO Auto-generated method stub
 		
 	}
 }
