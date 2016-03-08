@@ -53,6 +53,13 @@ public class TemplateDB {
             templates.add(template4);
             templates.add(template5);
             
+            imgIconTemplates.add(new ImageIcon(template0));
+            imgIconTemplates.add(new ImageIcon(template1));
+            imgIconTemplates.add(new ImageIcon(template2));
+            imgIconTemplates.add(new ImageIcon(template3));
+            imgIconTemplates.add(new ImageIcon(template4));
+            imgIconTemplates.add(new ImageIcon(template5));
+            
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -75,10 +82,6 @@ public class TemplateDB {
 	 * @return An ArrayList of ImageIcon templates.
 	 */
 	public static ArrayList<ImageIcon> getImageIconTemplates() {
-		final ArrayList<Image> temp = getTemplates();
-		for(int i = 0; i < temp.size(); i++) {
-			imgIconTemplates.add(new ImageIcon(temp.get(i)));
-		}
 		return imgIconTemplates;
 	}
 }
