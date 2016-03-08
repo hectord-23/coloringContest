@@ -70,5 +70,15 @@ public class TemplateDB {
 		return temp;
 	}
 	
-
+	/** 
+	 * Gets a copy of the ArrayList of the image templates as ImageIcons.
+	 * @return An ArrayList of ImageIcon templates.
+	 */
+	public static ArrayList<ImageIcon> getImageIconTemplates() {
+		final ArrayList<Image> temp = getTemplates();
+		for(int i = 0; i < temp.size(); i++) {
+			imgIconTemplates.add(new ImageIcon(temp.get(i)));
+		}
+		return imgIconTemplates;
+	}
 }
