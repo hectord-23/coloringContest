@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import model.TemplateDB;
 
@@ -24,6 +25,7 @@ public class TemplatePanel extends Observable {
 	private final JPanel myPanel;
 	private final List<ImageIcon> myTemplates;
 	private final List<JLabel> myLabels;
+	private final JScrollPane myScrollPane;
 	
 	public TemplatePanel() {
 		myPanel = new JPanel();
@@ -31,6 +33,13 @@ public class TemplatePanel extends Observable {
 		myLabels = new ArrayList<JLabel>();
 		addLabels();
 		addComponents();
+		myScrollPane = new JScrollPane(getImages());
+	}
+	
+	private JPanel getImages() {
+		final JPanel panel = new JPanel();
+		
+		return panel;
 	}
 	
 	/**

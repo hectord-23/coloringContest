@@ -228,11 +228,11 @@ public class SubmissionPanel extends Observable {
 				} else {
 					// Obtain relative path of file
 					String temp = myFile.toString().substring(myFile.toString().lastIndexOf('\\'), myFile.toString().length());
-					temp = "./extras/Downloads" + temp;
+					temp = "./extras/Contestant_Submission" + temp;
 					temp = temp.replace('\\', '/');
 					final Object[] contestant = {myFirstName.getText(), myLastName.getText(), 
 							myAge.getText(), myEmail.getText(), myPhone.getText(), 
-							myID.getText(), temp};
+							myID.getText(), myImage.getImage()};
 					// Send to database
 					setChanged();
 					notifyObservers(contestant);
