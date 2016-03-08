@@ -32,23 +32,24 @@ public class TemplatePanel extends Observable {
 	 */
 	private JPanel createHeader() {
 		final JPanel panel = new JPanel();
-		panel.setMaximumSize(new Dimension(600, 150));
-		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		panel.setBackground(Color.WHITE);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 0));
-		
 		final Font font = new Font(Font.SANS_SERIF, Font.BOLD, 15);
 		final JLabel left = new JLabel("<html>Clark<br>County<br>Library<html>");
 		final JLabel center = new JLabel("<html>Coloring<br>Contest<br>Submission<html>");
 		final JButton button = new JButton("Go Home");
+		
 		assignGoHome(button);
 
 		left.setFont(font);
 		center.setFont(font);
 		
+		panel.setMaximumSize(new Dimension(600, 150));
+		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panel.setBackground(Color.WHITE);
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 0));
 		panel.add(left);
 		panel.add(center);
 		panel.add(button);
+		
 		return panel;
 	}
 	

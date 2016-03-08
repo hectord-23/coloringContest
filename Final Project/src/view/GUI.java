@@ -3,7 +3,6 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -88,19 +87,19 @@ public class GUI extends JFrame implements Observer {
 	 * Sets up the interface.
 	 */
 	private void setUp() {
+		final Toolkit kit = Toolkit.getDefaultToolkit();
 		setBackground(Color.WHITE);
 		setSize(600, 700);
-		final Toolkit kit = Toolkit.getDefaultToolkit();
 		setLocation((int) (kit.getScreenSize().getWidth() / 2 - getWidth() / 2),
 				(int) (kit.getScreenSize().getHeight() / 2 - getHeight() / 2));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		cardPanel.setLayout(myLayout);
-		add(cardPanel, BorderLayout.CENTER);
 		cardPanel.add(myIntroPanel);
 		cardPanel.add(mySubmitPanel);
 		cardPanel.add(myAdminPanel);
 		cardPanel.add(myTemplatePanel);
+		add(cardPanel, BorderLayout.CENTER);
 	}
 	
 	/**
@@ -122,7 +121,6 @@ public class GUI extends JFrame implements Observer {
 	 */
 	private boolean createLoginDialog() {
 		final JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
 		final JPanel passPanel = new JPanel(new FlowLayout());
 		final JPanel userPanel = new JPanel(new FlowLayout());
 		final JLabel username = new JLabel("Username: ");
@@ -130,21 +128,26 @@ public class GUI extends JFrame implements Observer {
 		final JTextField user = new JTextField(10);
 		final JPasswordField pass = new JPasswordField(10);
 		final String[] options = new String[]{"OK", "Cancel"};
+		
 		passPanel.add(password);
 		passPanel.add(pass);
 		userPanel.add(username);
 		userPanel.add(user);
+		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
 		panel.add(userPanel);
 		panel.add(passPanel);
 		int option = JOptionPane.showOptionDialog(this, panel, "Login",
 				JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
 				null, options, options[1]);
 		final String parsedPassword = new String(pass.getPassword());
-		if (option == 0 && AdminPanel.PASSWORD.equals(parsedPassword) && AdminPanel.USERNAME.equals(user.getText())) {
+		// Verify that correct credentials were entered
+		if (option == 0 && AdminPanel.PASSWORD.equals(parsedPassword) 
+				&& AdminPanel.USERNAME.equals(user.getText())) {
 			return true;
 		} else if (option == 0){						
 			JOptionPane.showMessageDialog(this, "Incorrect login information, please try again");
 		}
+		
 		return false;
 	}
 	
@@ -153,13 +156,14 @@ public class GUI extends JFrame implements Observer {
 	 * 
 	 * @param theArgs Command line arguments, to be ignored
 	 */
-	public static void main(String... theArgs) {
+	public static void main(final String... theArgs) {
+		@SuppressWarnings("unused")
 		GUI gui = new GUI();
 	}
 	
 
 	@Override
-	public void update(Observable arg0, Object theObject) {
+	public void update(final Observable arg0, final Object theObject) {
 		if (theObject instanceof String) {
 			String input = (String) theObject;
 			switch (input) {
@@ -169,7 +173,7 @@ public class GUI extends JFrame implements Observer {
 					myLayout.show(cardPanel, input);
 					cardPanel.revalidate();
 					break;
-				} case "ADMIN": {
+				} case "ADMIN": {	// dependent on correct credentials being entered
 					if (createLoginDialog()) {
 						myLayout.show(cardPanel, input);
 						cardPanel.revalidate();

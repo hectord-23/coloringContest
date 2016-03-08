@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -9,7 +8,6 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -107,14 +105,26 @@ public class SubmissionPanel extends Observable {
 	 * Adds all of the components to this panel.
 	 */
 	private void addComponents() {
+		final JPanel panel = contactInfo();
+
+		myCheckBox.setBackground(Color.WHITE);
+		myFileChooser.setDialogType(JFileChooser.OPEN_DIALOG);
+
 		myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
 		myPanel.setBackground(Color.WHITE);
 		myPanel.add(createHeader());
 		myPanel.add(Box.createVerticalStrut(10));
-		myCheckBox.setBackground(Color.WHITE);
-		myFileChooser.setDialogType(JFileChooser.OPEN_DIALOG);
-//		((BorderLayout) myPanel.getLayout()).setVgap(15);
-		// Either this way
+		myPanel.add(panel);
+		myPanel.add(Box.createVerticalStrut(10));
+		myPanel.add(createUpload());
+	}
+	
+	/**
+	 * Create and return the panel that  holds the contact information for a submission. 
+	 * 
+	 * @return panel for entering contact information
+	 */
+	private JPanel contactInfo() {
 		final JPanel panel = new JPanel(new GridLayout(6, 2));
 		panel.setBackground(Color.WHITE);
 		panel.add(addPanel("First Name: "));
@@ -124,10 +134,7 @@ public class SubmissionPanel extends Observable {
 		panel.add(addPanel("        Email: "));
 		panel.add(addPanel("Library ID#: "));
 		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		myPanel.add(panel);
-		myPanel.add(Box.createVerticalStrut(10));
-		// Or this way
-		myPanel.add(createUpload());
+		return panel;
 	}
 	
 	/**
@@ -202,28 +209,34 @@ public class SubmissionPanel extends Observable {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
 				boolean emptyField = false;
+				// Check for empty fields and set cell to red if one is found
 				for (final JTextField current : myTextFields) {
 					if (current.getText().equals("")) {
 						emptyField = true;
 						current.setBackground(Color.RED);
 					}
 				}
-				if (emptyField || !myCheckBox.isSelected() || myImage == null) {
+				if (emptyField || !myCheckBox.isSelected() || myImage == null) { // empty field
 					JOptionPane.showMessageDialog(null, 
                             "<html>Missing information!<br>Please enter all fields,<br>read the"
                             + " terms and conditions,<br>and upload an image<html>",
                             "Error!", JOptionPane.ERROR_MESSAGE);
 				} else {
-					final Object[] info = {myFirstName.getText(), myLastName.getText(), myAge.getText(),
-							myEmail.getText(), myPhone.getText(), myID.getText(), myImage};
+					final Object[] contestant = {myFirstName.getText(), myLastName.getText(), 
+							myAge.getText(), myEmail.getText(), myPhone.getText(), 
+							myID.getText(), myImage};
 					setChanged();
-					notifyObservers(info);
+					notifyObservers(contestant);
 					clearChanged();
-					JOptionPane.showMessageDialog(myPanel, "Submission successful, going back to the home page.", "Submission Successful!", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(myPanel, "Submission successful, "
+							+ "going back to the home page.", "Submission Successful!", 
+							JOptionPane.INFORMATION_MESSAGE);
+					// Revert red cells and make the text fields empty
 					for (final JTextField current : myTextFields) {
 						current.setBackground(Color.WHITE);
 						current.setText("");
 					}
+					// Reset all fields
 					myImage = null;
 					myCheckBox.setSelected(false);
 					myIconLabel.setIcon(null);
@@ -337,19 +350,19 @@ public class SubmissionPanel extends Observable {
 	 */
 	private JPanel createHeader() {
 		final JPanel panel = new JPanel();
-		panel.setMaximumSize(new Dimension(600, 150));
-		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		panel.setBackground(Color.WHITE);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 0));
-		
-		final Font font = new Font(Font.SANS_SERIF, Font.BOLD, 15);
 		final JLabel left = new JLabel("<html>Clark<br>County<br>Library<html>");
 		final JLabel center = new JLabel("<html>Coloring<br>Contest<br>Submission<html>");
+		final Font font = new Font(Font.SANS_SERIF, Font.BOLD, 15);
+		
 		assignGoHome(myGoHome);
 
 		left.setFont(font);
 		center.setFont(font);
 		
+		panel.setMaximumSize(new Dimension(600, 150));
+		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panel.setBackground(Color.WHITE);
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 0));
 		panel.add(left);
 		panel.add(center);
 		panel.add(myGoHome);
