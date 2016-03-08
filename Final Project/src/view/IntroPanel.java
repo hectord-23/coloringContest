@@ -53,32 +53,32 @@ public class IntroPanel extends Observable {
 	private JPanel getButtonsPanel() {
 		final JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		final JButton downloads = new JButton("<html>Download<br>Template<html>");
+		final JButton downloads = new JButton("<html>Download<br><center>Template<center><html>");
 		downloads.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
 				setChanged();
-				notifyObservers("TEMPLATES");
+				notifyObservers(GUI.TEMPLATES);
 				clearChanged();
 			}
 		});
 		
-		final JButton submit = new JButton("<html>Submit<br>Entry<html>");
+		final JButton submit = new JButton("<html>Submit<br><center>Entry<center><html>");
 		submit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
 				setChanged();
-				notifyObservers("SUBMIT");
+				notifyObservers(GUI.SUBMIT);
 				clearChanged();
 			}
 		});
 		
-		final JButton admin = new JButton("<html>Administrator<br>Login<html>");
+		final JButton admin = new JButton("<html>Administrator<br><center>Login<center><html>");
 		admin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
 				setChanged();
-				notifyObservers("ADMIN");
+				notifyObservers(GUI.ADMIN);
 				clearChanged();
 			}
 		});
