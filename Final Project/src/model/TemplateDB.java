@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /** 
  * A class to get the coloring templates.
@@ -23,6 +24,9 @@ public class TemplateDB {
 	
 	/** A private ArrayList of the contest templates. */
 	private final static ArrayList<Image> templates = new ArrayList<Image>();
+	
+	/** A private ArrayList of ImageIcons of the contest templates. */
+	private final static ArrayList<ImageIcon> imgIconTemplates = new ArrayList<ImageIcon>();
 	
 	/** Constructor class. */
 	public TemplateDB() {
@@ -56,7 +60,7 @@ public class TemplateDB {
 	
 	/** 
 	 * Gets a copy of the ArrayList of the image templates.
-	 * @return A copy of the ArrayLust of the image templates.
+	 * @return A copy of the ArrayList of the image templates.
 	 */
 	public static ArrayList<Image> getTemplates() {
 		ArrayList<Image> temp = new ArrayList<Image>();
@@ -66,5 +70,15 @@ public class TemplateDB {
 		return temp;
 	}
 	
-	
+	/** 
+	 * Gets a copy of the ArrayList of the image templates as ImageIcons.
+	 * @return An ArrayList of ImageIcon templates.
+	 */
+	public static ArrayList<ImageIcon> getImageIconTemplates() {
+		final ArrayList<Image> temp = getTemplates();
+		for(int i = 0; i < temp.size(); i++) {
+			imgIconTemplates.add(new ImageIcon(temp.get(i)));
+		}
+		return imgIconTemplates;
+	}
 }
