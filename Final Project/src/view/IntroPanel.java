@@ -18,6 +18,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
  * This class represents the introduction panel. The introductin panel is the home page for
@@ -30,8 +31,17 @@ import javax.swing.JPanel;
  */
 public class IntroPanel extends Observable {
 	
+	/** Details panel width */
+	private final int DETAILS_WIDTH = 375;
+	
+	/** Details panel height */
+	private final int DETAILS_HEIGHT = 400;
+	
 	/** The current panel. */
 	private final JPanel myPanel;
+	
+	/** Scroll pane for the moves table. */
+    private JScrollPane scrollPane;
 	
 	/**
 	 * Initialize a new Intro Panel.
@@ -48,7 +58,9 @@ public class IntroPanel extends Observable {
 	private void setUpComponents() {
 		final JPanel northPanel = new JPanel();
 		final JPanel centerPanel = new JPanel();
-		final JPanel details = getDetails();
+//		final JPanel details = getDetails();
+		scrollPane = new JScrollPane(getDetails());
+		scrollPane.setPreferredSize(new Dimension(DETAILS_WIDTH, DETAILS_HEIGHT));
 		final JPanel buttons = getButtonsPanel();
 		final JLabel label = new JLabel("Clark County Library Coloring Contest");
 
@@ -60,10 +72,10 @@ public class IntroPanel extends Observable {
 
 		centerPanel.setBackground(Color.WHITE);
 		centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 75, 0));//BoxLayout(centerPanel, BoxLayout.X_AXIS));
-		centerPanel.add(details);
+		centerPanel.add(scrollPane);
 		centerPanel.add(buttons);
 
-		details.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		buttons.setBackground(Color.WHITE);
 		myPanel.add(northPanel, BorderLayout.NORTH);
