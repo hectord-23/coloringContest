@@ -36,11 +36,11 @@ public class TemplatePanel extends Observable {
 	private final JFileChooser myFileChooser;
 	
 	public TemplatePanel() {
+		myIcons = new HashMap<ImageIcon, ImageIcon>();
 		myPanel = new JPanel();
 		myTemplates = TemplateDB.getImageIconTemplates();
 		myButtons = getButtons();
 		myScrollPane = new JScrollPane(getImages());
-		myIcons = new HashMap<ImageIcon, ImageIcon>();
 		myFileChooser = new JFileChooser(new File("./extras/Downloads"));
 		addComponents();
 	}
@@ -70,12 +70,7 @@ public class TemplatePanel extends Observable {
 			final ImageIcon smallImg = new ImageIcon(img.getScaledInstance(150, 150, Image.SCALE_DEFAULT));
 			list.add(new JButton(smallImg));
 			myIcons.put(smallImg, current);
-			button.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent theEvent) {
-					myFileChooser.showSaveDialog(myPanel);
-				}
-			});
+
 		}
 		
 		return list;
@@ -88,6 +83,13 @@ public class TemplatePanel extends Observable {
 		for (final JButton button : myButtons) {
 			button.setBackground(Color.WHITE);
 			button.setBorder(BorderFactory.createEmptyBorder());
+			button.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(final ActionEvent theEvent) {
+					System.out.println("here");
+					myFileChooser.showSaveDialog(myPanel);
+				}
+			});
 			panel.add(button);
 		}
 		return panel;
