@@ -39,7 +39,9 @@ public class TemplateDB {
 			// The templates
 			File directory = new File("./extras/Templates");
 			for (final File file : directory.listFiles()) {
-				templates.add(ImageIO.read(file));
+				if (file.toString().endsWith(".jpg")) {
+					templates.add(ImageIO.read(file));
+				}
 			}            
         } catch (IOException e){
             e.printStackTrace();
