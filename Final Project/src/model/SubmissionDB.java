@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -12,6 +13,7 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 import controller.Contestant;
+import view.SubmissionPanel;
 
 /**
  * A class to represent the contest submission database.
@@ -22,7 +24,7 @@ import controller.Contestant;
  * @author Cody Cates
  * @date March 3, 2016
  */
-public class SubmissionDB implements Observer {
+public class SubmissionDB  {
 	
 	/** A master list to act as the back end data. */
 	private ArrayList<Contestant> mySubmissions;
@@ -31,6 +33,7 @@ public class SubmissionDB implements Observer {
 	 * Constructor to read in persistent data.
 	 */
 	public SubmissionDB() {
+		super();
 		mySubmissions = new ArrayList<Contestant>();
 		if ( recallData() ) {
 			
@@ -99,8 +102,10 @@ public class SubmissionDB implements Observer {
 		
 	}
 
-	@Override
-	public void update(Observable arg0, Object theSubmission) {
+//	@Override
+	public void addData(Object theSubmission) {
+//		if(!(arg0 instanceof SubmissionPanel) && !theSubmission.equals("INTRO")) return;
+		System.out.println("WE HAVE DATA TO WRITE");
 		// TODO Auto-generated method stub
 		String name = (String) ((Object[]) theSubmission)[0];
 		String lastName = (String) ((Object[]) theSubmission)[1];
@@ -115,6 +120,25 @@ public class SubmissionDB implements Observer {
 	private void addASubmission(String name, String lastName, String age, String email,
 			String phone, String id, Image myImage) {
 		// TODO Auto-generated method stub
-		
+		String submission = name + " " + lastName + " " + age + " " + email + " " + phone + " " + id;
+		System.out.println(submission);
+		//		PrintStream outputFile = null;
+//		Scanner inputFile = null;
+//		final StringBuilder sb = new StringBuilder();
+//		try
+//		{
+//			inputFile = new Scanner(new File("/extras/Contestant_Submissions/submissionsData.txt"));
+//			outputFile = new PrintStream(new File("/extras/Contestant_Submissions/submissionsData.txt"));
+//		}
+//		catch(Exception e)
+//		{
+//			System.out.println("Difficulties opening the file! " + e);
+////			System.exit(1);
+//		}
+//		while(inputFile.hasNextLine()) {
+//			sb.append(inputFile.nextLine());
+//		}
+//		outputFile.println(sb.toString());
+//		outputFile.println(submission);
 	}
 }

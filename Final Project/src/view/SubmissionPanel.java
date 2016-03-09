@@ -27,6 +27,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import model.SubmissionDB;
+
 /**
  * This class represents the submission panel where the user can enter in their information,
  * upload an image, and submit an entry for the coloring contest.
@@ -84,10 +86,14 @@ public class SubmissionPanel extends Observable {
 	/** The current panel. */
 	private final JPanel myPanel;
 	
+	private final SubmissionDB submissionDB;
+	
 	/**
 	 * Initialize a new submissions panel.
+	 * @param subDB 
 	 */
-	public SubmissionPanel() {
+	public SubmissionPanel(SubmissionDB subDB) {
+		submissionDB = subDB;
 		myPanel = new JPanel();
 		myFirstName = new JTextField(DEFAULT_CHARACTERS);
 		myLastName = new JTextField(DEFAULT_CHARACTERS);
@@ -234,7 +240,8 @@ public class SubmissionPanel extends Observable {
 							myID.getText(), myImage.getImage()};
 					// Send to database
 					setChanged();
-					notifyObservers(contestant);
+//					notifyObservers(contestant);
+					submissionDB.addData(contestant);
 					clearChanged();
 					JOptionPane.showMessageDialog(myPanel, "Submission successful, "
 							+ "going back to the home page.", "Submission Successful!", 

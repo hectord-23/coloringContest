@@ -60,20 +60,18 @@ public class GUI extends JFrame implements Observer {
 
 	/**
 	 * Initializes a new contest GUI.
-	 * 
-	 * @param theDB the submission database
+	 * @param subDB 
 	 */
-	public GUI(final SubmissionDB theDB) {
+	public GUI(SubmissionDB subDB) {
 		super("TCSS 360 - Fist Full of Java");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		final IntroPanel introPanel = new IntroPanel();
-		final SubmissionPanel submitPanel = new SubmissionPanel();
+		final SubmissionPanel submitPanel = new SubmissionPanel(subDB);
 		final AdminPanel adminPanel = new AdminPanel();
 		final TemplatePanel templatePanel = new TemplatePanel();
 		
 		introPanel.addObserver(this);
 		submitPanel.addObserver(this);
-		submitPanel.addObserver(theDB);
 		adminPanel.addObserver(this);
 		templatePanel.addObserver(this);
 		
@@ -166,8 +164,9 @@ public class GUI extends JFrame implements Observer {
 	 */
 	public static void main(final String... theArgs) {
 		TemplateDB db = new TemplateDB();
+		SubmissionDB subDB = new SubmissionDB();
 		@SuppressWarnings("unused")
-		GUI gui = new GUI(new SubmissionDB());
+		GUI gui = new GUI(subDB);
 	}
 	
 
