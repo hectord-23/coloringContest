@@ -90,17 +90,17 @@ public class SubmissionDB  {
 	}
 
 //	@Override
-	public void addData(Object theSubmission) {
+	public void addData(Object[] theSubmission) {
 //		if(!(arg0 instanceof SubmissionPanel) && !theSubmission.equals("INTRO")) return;
 //		System.out.println("WE HAVE DATA TO WRITE");
 		// TODO Auto-generated method stub
-		String name = (String) ((Object[]) theSubmission)[0];
-		String lastName = (String) ((Object[]) theSubmission)[1];
-		String age = (String) ((Object[]) theSubmission)[2];
-		String email = (String) ((Object[]) theSubmission)[3];
-		String phone = (String) ((Object[]) theSubmission)[4];
-		String id = (String) ((Object[]) theSubmission)[5];
-		Image myImage = (Image) ((Object[]) theSubmission)[6];
+		String name = (String) theSubmission[0];
+		String lastName = (String) theSubmission[1];
+		String age = (String) theSubmission[2];
+		String email = (String) theSubmission[3];
+		String phone = (String) theSubmission[4];
+		String id = (String) theSubmission[5];
+		Image myImage = (Image) theSubmission[6];
 		addSubmission(name, lastName, age, email, phone, id, myImage);
 	}
 
@@ -112,13 +112,10 @@ public class SubmissionDB  {
 		PrintStream outputFile = null;
 		Scanner inputFile = null;
 		final StringBuilder sb = new StringBuilder();
-		try
-		{
+		try {
 			inputFile = new Scanner(new File("extras/Contestant_Submissions/submissionsData.txt"));
-		}
-		catch(Exception e)
-		{
-			System.out.println("Difficulties opening the file! " + e);
+		} catch(Exception e) {
+		 	System.out.println("Difficulties opening the file! " + e);
 //			System.exit(1);
 		}
 		while(inputFile.hasNextLine()) {
@@ -132,7 +129,7 @@ public class SubmissionDB  {
 			outputFile = new PrintStream(new File("extras/Contestant_Submissions/submissionsData.txt"));
 		} catch (FileNotFoundException e) {
 			System.out.println("Difficulties opening the file! " + e);
-		}
+		  }
 		outputFile.print(sb.toString());
 		outputFile.print(submission);
 		outputFile.close();

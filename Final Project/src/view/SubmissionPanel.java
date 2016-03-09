@@ -101,7 +101,7 @@ public class SubmissionPanel extends Observable {
 		myPhone = new JTextField(DEFAULT_CHARACTERS);
 		myEmail = new JTextField(DEFAULT_CHARACTERS);
 		myID = new JTextField(DEFAULT_CHARACTERS);
-		myFileChooser = new JFileChooser(".\\Pictures");
+		myFileChooser = new JFileChooser("./extras/Templates");
 		myTextFields = new ArrayList<JTextField>();
 		myCheckBox = new JCheckBox();
 		myIconLabel = new JLabel();

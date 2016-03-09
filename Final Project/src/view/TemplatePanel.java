@@ -125,17 +125,18 @@ public class TemplatePanel extends Observable {
 			button.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(final ActionEvent theEvent) {
-					myFileChooser.showSaveDialog(myPanel);
-					File f = myFileChooser.getSelectedFile();
-					Image img = myIcons.get(button).getImage();
-					BufferedImage bi = (BufferedImage) img;
-					Graphics g = bi.getGraphics();
-					g.drawImage(bi, 0, 0, null);
-
-					try {
-						ImageIO.write(bi, "jpg", f);
-					} catch (IOException e) {
-						e.printStackTrace();
+					int result = myFileChooser.showSaveDialog(myPanel);
+					if (result == JFileChooser.APPROVE_OPTION) {
+						File f = myFileChooser.getSelectedFile();
+						Image img = myIcons.get(button).getImage();
+						BufferedImage bi = (BufferedImage) img;
+						Graphics g = bi.getGraphics();
+						g.drawImage(bi, 0, 0, null);
+						try {
+								ImageIO.write(bi, "jpg", f);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 					}
 					
 				}
