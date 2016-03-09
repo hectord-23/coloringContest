@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import model.SubmissionDB;
 import model.TemplateDB;
 	
 public class GUI extends JFrame implements Observer {
@@ -59,8 +60,10 @@ public class GUI extends JFrame implements Observer {
 
 	/**
 	 * Initializes a new contest GUI.
+	 * 
+	 * @param theDB the submission database
 	 */
-	public GUI() {
+	public GUI(final SubmissionDB theDB) {
 		super("TCSS 360 - Fist Full of Java");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		final IntroPanel introPanel = new IntroPanel();
@@ -70,6 +73,7 @@ public class GUI extends JFrame implements Observer {
 		
 		introPanel.addObserver(this);
 		submitPanel.addObserver(this);
+		submitPanel.addObserver(theDB);
 		adminPanel.addObserver(this);
 		templatePanel.addObserver(this);
 		
@@ -80,6 +84,8 @@ public class GUI extends JFrame implements Observer {
 		myLayout = new CardLayout(5, 5);
 		cardPanel = new JPanel();
 		cardPanel.setBackground(Color.WHITE);
+		
+		
 		setUp();
 		setUpLayoutManager();
 		setVisible(true);
@@ -161,7 +167,7 @@ public class GUI extends JFrame implements Observer {
 	public static void main(final String... theArgs) {
 		TemplateDB db = new TemplateDB();
 		@SuppressWarnings("unused")
-		GUI gui = new GUI();
+		GUI gui = new GUI(new SubmissionDB());
 	}
 	
 
