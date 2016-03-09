@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
@@ -92,8 +94,12 @@ public class TemplatePanel extends Observable {
 					myFileChooser.showSaveDialog(myPanel);
 					File f = myFileChooser.getSelectedFile();
 					Image img = myIcons.get(button).getImage();
+					BufferedImage bi = (BufferedImage) img;//new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+					Graphics g = bi.getGraphics();
+					g.drawImage(bi, 0, 0, null);
+
 					try {
-						ImageIO.write((RenderedImage) myIcons.get(button).getImage(), ".jpg", f);// new File("extras/Downloads/template.jpg"));
+						ImageIO.write(bi, "jpg", f);// new File("extras/Downloads/template.jpg"));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
