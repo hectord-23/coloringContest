@@ -3,6 +3,7 @@ package model;
 import java.awt.Image;
 import java.awt.image.RenderedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -105,7 +106,7 @@ public class SubmissionDB  {
 //	@Override
 	public void addData(Object theSubmission) {
 //		if(!(arg0 instanceof SubmissionPanel) && !theSubmission.equals("INTRO")) return;
-		System.out.println("WE HAVE DATA TO WRITE");
+//		System.out.println("WE HAVE DATA TO WRITE");
 		// TODO Auto-generated method stub
 		String name = (String) ((Object[]) theSubmission)[0];
 		String lastName = (String) ((Object[]) theSubmission)[1];
@@ -121,24 +122,33 @@ public class SubmissionDB  {
 			String phone, String id, Image myImage) {
 		// TODO Auto-generated method stub
 		String submission = name + " " + lastName + " " + age + " " + email + " " + phone + " " + id;
-		System.out.println(submission);
-		//		PrintStream outputFile = null;
-//		Scanner inputFile = null;
-//		final StringBuilder sb = new StringBuilder();
-//		try
-//		{
-//			inputFile = new Scanner(new File("/extras/Contestant_Submissions/submissionsData.txt"));
-//			outputFile = new PrintStream(new File("/extras/Contestant_Submissions/submissionsData.txt"));
-//		}
-//		catch(Exception e)
-//		{
-//			System.out.println("Difficulties opening the file! " + e);
-////			System.exit(1);
-//		}
-//		while(inputFile.hasNextLine()) {
-//			sb.append(inputFile.nextLine());
-//		}
-//		outputFile.println(sb.toString());
-//		outputFile.println(submission);
+//		System.out.println(submission);
+		PrintStream outputFile = null;
+		Scanner inputFile = null;
+		final StringBuilder sb = new StringBuilder();
+		try
+		{
+			inputFile = new Scanner(new File("extras/Contestant_Submissions/submissionsData.txt"));
+		}
+		catch(Exception e)
+		{
+			System.out.println("Difficulties opening the file! " + e);
+//			System.exit(1);
+		}
+		while(inputFile.hasNextLine()) {
+			String temp = inputFile.nextLine() + "\n";
+//			System.out.println(">> : " + temp);
+			sb.append(temp);
+		}
+//		System.out.println("DATA IN  FILE: " + sb.toString());
+		inputFile.close();
+		try {
+			outputFile = new PrintStream(new File("extras/Contestant_Submissions/submissionsData.txt"));
+		} catch (FileNotFoundException e) {
+			System.out.println("Difficulties opening the file! " + e);
+		}
+		outputFile.print(sb.toString());
+		outputFile.print(submission);
+		outputFile.close();
 	}
 }
