@@ -76,20 +76,6 @@ public class SubmissionDB  {
 	}
 	
 	/**
-	 * Adds the passed Contestant to the persistent data stored.
-	 * The Image in Contestant strictly needs to to be in the image 
-	 * as an Object that implements RenderedImage such as a BufferedImage.
-	 * @param Contestant the contestant being added to the database
-	 */
-	public void addSubmission(Contestant toAdd) {
-		try {
-			ImageIO.write((RenderedImage) toAdd.getImage(), "jpg", new File("extras/Submitted/number.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}	
-	
-	/**
 	 * Delete a contestant from the database.
 	 */
 	public void deleteContestant() {
@@ -115,10 +101,10 @@ public class SubmissionDB  {
 		String phone = (String) ((Object[]) theSubmission)[4];
 		String id = (String) ((Object[]) theSubmission)[5];
 		Image myImage = (Image) ((Object[]) theSubmission)[6];
-		addASubmission(name, lastName, age, email, phone, id, myImage);
+		addSubmission(name, lastName, age, email, phone, id, myImage);
 	}
 
-	private void addASubmission(String name, String lastName, String age, String email,
+	private void addSubmission(String name, String lastName, String age, String email,
 			String phone, String id, Image myImage) {
 		// TODO Auto-generated method stub
 		String submission = name + " " + lastName + " " + age + " " + email + " " + phone + " " + id;
@@ -150,5 +136,17 @@ public class SubmissionDB  {
 		outputFile.print(sb.toString());
 		outputFile.print(submission);
 		outputFile.close();
+		saveImage(myImage, id);
 	}
+
+	/**
+	 * 
+	 */
+	public void saveImage(Image theImage, String theID) {
+		try {
+			ImageIO.write((RenderedImage) theImage, "jpg", new File("extras/Contestant_Submissions/" + theID + ".jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}	
 }
