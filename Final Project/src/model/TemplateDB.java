@@ -37,23 +37,10 @@ public class TemplateDB {
 	private void addTemplates() {
 		try{
 			// The templates
-			
-            final Image template0 = ImageIO.read(new File("extras/Templates/Adult-Coloring-Pages-24.jpg"));
-            final Image template1 = ImageIO.read(new File("extras/Templates/elephant-adult-coloring-page.jpg"));
-            final Image template2 = ImageIO.read(new File("extras/Templates/Free-Coloring-Pages-9.jpg"));
-            final Image template3 = ImageIO.read(new File("extras/Templates/Lion_Head_Adult_Coloring_Pages_01.jpg"));
-            final Image template4 = ImageIO.read(new File("extras/Templates/Mario.jpg"));
-            final Image template5 = ImageIO.read(new File("extras/Templates/Start.jpg"));
-            final Image template6 = ImageIO.read(new File("extras/Templates/Difficult-Animals-Coloring-Pages-For-Adults-3.jpg"));
-            // Adding them to the templates Arraylist.
-            templates.add(template0);
-            templates.add(template1);
-            templates.add(template2);
-            templates.add(template3);
-            templates.add(template4);
-            templates.add(template5);
-            templates.add(template6);
-            
+			File directory = new File("./extras/Templates");
+			for (final File file : directory.listFiles()) {
+				templates.add(ImageIO.read(file));
+			}            
         } catch (IOException e){
             e.printStackTrace();
         }
