@@ -4,17 +4,22 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -32,16 +37,16 @@ public class TemplatePanel extends Observable {
 	private final List<ImageIcon> myTemplates;
 	private final JScrollPane myScrollPane;
 	private final List<JButton> myButtons;
-	private final Map<ImageIcon, ImageIcon> myIcons;
+	private final Map<JButton, ImageIcon> myIcons;
 	private final JFileChooser myFileChooser;
 	
 	public TemplatePanel() {
-		myIcons = new HashMap<ImageIcon, ImageIcon>();
+		myFileChooser = new JFileChooser(new File("./extras/Downloads"));
+		myIcons = new HashMap<JButton, ImageIcon>();
 		myPanel = new JPanel();
 		myTemplates = TemplateDB.getImageIconTemplates();
 		myButtons = getButtons();
 		myScrollPane = new JScrollPane(getImages());
-		myFileChooser = new JFileChooser(new File("./extras/Downloads"));
 		addComponents();
 	}
 	
@@ -65,11 +70,11 @@ public class TemplatePanel extends Observable {
 	private List<JButton> getButtons() {
 		final List<JButton> list = new ArrayList<JButton>();
 		for (final ImageIcon current : myTemplates) {
-			final JButton button = new JButton(current);
 			final Image img = current.getImage();
 			final ImageIcon smallImg = new ImageIcon(img.getScaledInstance(150, 150, Image.SCALE_DEFAULT));
-			list.add(new JButton(smallImg));
-			myIcons.put(smallImg, current);
+			final JButton button = new JButton(smallImg);
+			list.add(button);
+			myIcons.put(button, current);
 
 		}
 		
@@ -86,8 +91,15 @@ public class TemplatePanel extends Observable {
 			button.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(final ActionEvent theEvent) {
-					System.out.println("here");
 					myFileChooser.showSaveDialog(myPanel);
+					File f = myFileChooser.getSelectedFile();
+					Image img = myIcons.get(button).getImage();
+					try {
+						ImageIO.write((RenderedImage) myIcons.get(button).getImage(), ".jpg", f);// new File("extras/Downloads/template.jpg"));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
 				}
 			});
 			panel.add(button);
