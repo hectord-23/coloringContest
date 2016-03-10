@@ -12,6 +12,7 @@ import java.util.Observer;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 import controller.Contestant;
 import view.SubmissionPanel;
@@ -36,35 +37,9 @@ public class SubmissionDB  {
 	public SubmissionDB() {
 		super();
 		mySubmissions = new ArrayList<Contestant>();
-		if ( recallData() ) {
-			
-		}
 	}
 	
-	/**
-	 * Reads in persistent data from csv file /extras/Archive.csv
-	 * @return false on successful read, true on failed read
-	 */
-	private boolean recallData() {
-		String line;
-		int noEntries;
-		File csvFile;
-		Scanner scan;
-		
-//		try {
-			csvFile = new File("/extras/Archive.csv");
-//			while(scan.hasNextLine()) {
-//				c
-//		} catch (IOException e){
-//            e.printStackTrace();
-//            
-//            //exit fail
-//            return true;
-//        }
-		
-		// exit success
-		return false;
-	}
+
 	
 	/**
 	 * Deep copies mySubmissions and returns it.
@@ -87,6 +62,59 @@ public class SubmissionDB  {
 	 */
 	public void save() {
 		
+	}
+	
+	/**
+	 * Reads in the persistent submission data from extras/Contestant_Submissions
+	 * !! Since we're using spaces as delimiters, I'm reading in each arg as a token., If the 
+	 * @return false on successful read, true on failed read
+	 * @author Cody Cates
+	 */
+	private ArrayList<Object[]> recallSubmissions() {
+		int i ;
+		String line;
+		String[] tempArray;
+		Object[] subArray;
+		Scanner inputFile;
+		File inputImgFile;
+		ArrayList<Object[]> retList = new ArrayList<Object[]>();
+		
+		try {
+			// Open submission file and scan it.
+			inputFile = new Scanner(new File("extras/Contestant_Submissions/submissionsData.txt"));
+			while (inputFile.hasNextLine()) {
+				
+				// Read a line and split it into a temporary array by spaces
+				tempArray = inputFile.nextLine().split(" ");
+				
+				// If the line did not have the right number of entries, print out error and skip it
+				if (tempArray.length != 6) {
+					System.err.println("Corrupt entry.");
+					for(i = 0; i < tempArray.length; i++) 
+						System.err.print(tempArray[i]);
+					System.err.println();
+					continue;
+				}
+				
+				inputImgFile = new File("extras/Contestant_Submissions/" + tempArray[5] + ".jpg");
+				
+				// add components to new array
+				subArray = new Object[7];
+				for(i = 0; i < tempArray.length; i++) 
+					subArray[i] = tempArray[i];
+				subArray[i] = new ImageIcon(ImageIO.read(inputImgFile));
+				
+				// add submission array into ArrayList of submissions
+				retList.add(subArray);
+			}
+		} catch (FileNotFoundException e) {
+			System.err.println("FileNotFoundException when opening file from SubmissionsDatabase.");
+			e.printStackTrace(System.err);
+		} catch (IOException e) {
+			System.err.println("IOException reading in image from SubmissionsDataBase.");
+			e.printStackTrace(System.err);
+		}
+		return retList;
 	}
 
 //	@Override
