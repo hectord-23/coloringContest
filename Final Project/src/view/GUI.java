@@ -70,7 +70,7 @@ public class GUI extends JFrame implements Observer {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		final IntroPanel introPanel = new IntroPanel();
 		final SubmissionPanel submitPanel = new SubmissionPanel(subDB);
-		final AdminPanel adminPanel = new AdminPanel();
+		final AdminPanel adminPanel = new AdminPanel(subDB);
 		final TemplatePanel templatePanel = new TemplatePanel();
 		
 		introPanel.addObserver(this);

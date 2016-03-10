@@ -19,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import model.SubmissionDB;
+
 /**
  * This class represents the administrator panel. The administrator can select contestants
  * manually or select a range and then either delete or download the selected contestants.
@@ -49,17 +51,21 @@ public class AdminPanel extends Observable {
 	/** The column names for this table. */
 	private Object[] myColumnNames;
 	
+	/** The current submissions database. */
+	private final SubmissionDB myDataBase;
+	
 //	private final List<Contestant> myContestants;
 	
 	/**
 	 * Initialize a new Administrator panel.
 	 */
-	public AdminPanel() {
+	public AdminPanel(final SubmissionDB theDB) {
 		myPanel = new JPanel();
 		myFile = new File("./extras/administrator_downloads");
 		myTableElements = loadSubmissions();
-		myTableElements = new String[6][6];
-		myColumnNames = new Object[]{"", "First Name", "Last Name", "Contact", "Submission", ""};
+		myTableElements = new String[30][7];
+		myColumnNames = new Object[]{"", "First Name", "Last Name", "Age", "Contact", "Submission", ""};
+		myDataBase = theDB;
 		myTable = new JTable(new DefaultTableModel(myTableElements, myColumnNames)) {
 			/** A generated serial version UID. */
 			private static final long serialVersionUID = 3368531531283619989L;
@@ -69,7 +75,7 @@ public class AdminPanel extends Observable {
 				return column != 0;
 			}
 		};
-//		myContestants = 
+		myTable.setPreferredSize(new Dimension(600, 300));
 		addComponents();
 	}
 	
@@ -99,13 +105,16 @@ public class AdminPanel extends Observable {
 		myTable.getTableHeader().setReorderingAllowed(false);
 		myTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		myTable.getColumnModel().getColumn(0).setPreferredWidth(30);
-		myTable.getColumnModel().getColumn(5).setPreferredWidth(25);
+		myTable.getColumnModel().getColumn(6).setPreferredWidth(25);
+		myTable.setBackground(Color.WHITE);
+		
 		myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
 		myPanel.setAlignmentY(JPanel.CENTER_ALIGNMENT);
 		myPanel.add(createHeader());
 		myPanel.add(Box.createVerticalStrut(10));
 		myPanel.setBackground(Color.WHITE);
-		myPanel.add(new JScrollPane(myTable));
+		myPanel.add(new JScrollPane(myTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
 	}
 	
 	/**
