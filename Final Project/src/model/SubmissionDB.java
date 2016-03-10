@@ -71,8 +71,7 @@ public class SubmissionDB  {
 	 * @author Cody Cates
 	 */
 	private ArrayList<Object[]> recallSubmissions() {
-		int i ;
-		String line;
+		int i;
 		String[] tempArray;
 		Object[] subArray;
 		Scanner inputFile;
