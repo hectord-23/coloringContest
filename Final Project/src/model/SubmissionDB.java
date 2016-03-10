@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
@@ -70,13 +71,13 @@ public class SubmissionDB  {
 	 * @return false on successful read, true on failed read
 	 * @author Cody Cates
 	 */
-	public ArrayList<Object[]> recallSubmissions() {
+	public List<Object[]> recallSubmissions() {
 		int i;
 		String[] tempArray;
 		Object[] subArray;
 		Scanner inputFile;
 		File inputImgFile;
-		ArrayList<Object[]> retList = new ArrayList<Object[]>();
+		List<Object[]> retList = new ArrayList<Object[]>();
 		
 		try {
 			// Open submission file and scan it.

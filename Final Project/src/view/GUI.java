@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -75,6 +76,7 @@ public class GUI extends JFrame implements Observer {
 		
 		introPanel.addObserver(this);
 		submitPanel.addObserver(this);
+		submitPanel.addObserver(adminPanel);
 		adminPanel.addObserver(this);
 		templatePanel.addObserver(this);
 		
@@ -168,7 +170,7 @@ public class GUI extends JFrame implements Observer {
 	public static void main(final String... theArgs) {
 		TemplateDB db = new TemplateDB();
 		SubmissionDB subDB = new SubmissionDB();
-		ArrayList<Object[]> list = subDB.recallSubmissions();
+		List<Object[]> list = subDB.recallSubmissions();
 		for(int i = 0; i < list.size(); i++) {
 			Object[] contestantData = list.get(i);
 			String name = (String) contestantData[0];

@@ -4,14 +4,23 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,7 +37,7 @@ import model.SubmissionDB;
  * @author Jonah Howard
  * @version 6 March 2016
  */
-public class AdminPanel extends Observable {
+public class AdminPanel extends Observable implements Observer {
 	
 	/** The username for the administrator. */
 	protected static final String USERNAME = "";
@@ -51,6 +60,8 @@ public class AdminPanel extends Observable {
 	/** The column names for this table. */
 	private Object[] myColumnNames;
 	
+	private List<Object[]> myContestants;
+	
 	/** The current submissions database. */
 	private final SubmissionDB myDataBase;
 	
@@ -63,20 +74,57 @@ public class AdminPanel extends Observable {
 		myPanel = new JPanel();
 		myFile = new File("./extras/administrator_downloads");
 		myTableElements = loadSubmissions();
-		myTableElements = new String[30][7];
-		myColumnNames = new Object[]{"", "First Name", "Last Name", "Age", "Contact", "Submission", ""};
+		myContestants = theDB.recallSubmissions();
+		myTableElements = initializeTable();
+		myColumnNames = new Object[]{"", "First Name", "Last Name", "Contact", "Age", "ID", "Submission", false};
 		myDataBase = theDB;
 		myTable = new JTable(new DefaultTableModel(myTableElements, myColumnNames)) {
 			/** A generated serial version UID. */
 			private static final long serialVersionUID = 3368531531283619989L;
-
+			@Override
+			public Class getColumnClass(final int index) {
+				if (index == 7) {
+					return Boolean.class;
+				} else if (index == 6) {
+					return ImageIcon.class;
+				} else {
+					return String.class;
+				}
+			}
 			@Override
 			public boolean isCellEditable(int row, int column) {
-				return column != 0;
+				return false;
 			}
 		};
-		myTable.setPreferredSize(new Dimension(600, 300));
+		myTable.setMinimumSize(new Dimension(560, 100));
 		addComponents();
+	}
+	
+	private Object[][] initializeTable() {
+		final Object[][] result = new Object[myContestants.size()][8];
+		int i = 1;
+		for (final Object[] current : myContestants) {
+			final Object[] temp = new Object[8];
+			result[i - 1][0] = i;
+			result[i - 1][1] = current[0];
+			result[i - 1][2] = current[1];
+			result[i - 1][3] = current[3];
+			result[i - 1][4] = current[2];
+			result[i - 1][5] = current[5];
+			try {
+				File f = new File("extras/Contestant_Submissions/" + current[5] + ".jpg");
+				System.out.println("file is: " + f.toString());
+				Image img = ImageIO.read(f);
+				ImageIcon icon = new ImageIcon(img.getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+				result[i - 1][6] = icon;//new ImageIcon(((Image) ImageIO.read(f)).getScaledInstance(100,  100, Image.SCALE_DEFAULT));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		    result[i - 1][7] = false;
+			i++;
+//			((DefaultTableModel) myTable.getModel()).addRow(result);
+		}
+		return result;
 	}
 	
 	/**
@@ -103,11 +151,12 @@ public class AdminPanel extends Observable {
 	 */
 	private void addComponents() {
 		myTable.getTableHeader().setReorderingAllowed(false);
-		myTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		myTable.getColumnModel().getColumn(0).setPreferredWidth(30);
-		myTable.getColumnModel().getColumn(6).setPreferredWidth(25);
+//		myTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		myTable.setRowHeight(100);
+		myTable.getColumnModel().getColumn(0).setMaxWidth(30);
+		myTable.getColumnModel().getColumn(7).setMaxWidth(30);
+		myTable.getColumnModel().getColumn(4).setMaxWidth(30);
 		myTable.setBackground(Color.WHITE);
-		
 		myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
 		myPanel.setAlignmentY(JPanel.CENTER_ALIGNMENT);
 		myPanel.add(createHeader());
@@ -160,4 +209,21 @@ public class AdminPanel extends Observable {
 		
 		return panel;
 	}
+
+	@Override
+	public void update(final Observable arg0, final Object theObject) {
+		if (theObject instanceof Object[]) {
+			final Object[] current = (Object[]) theObject;
+			final Object[] submission = new Object[8];
+			submission[0] = myContestants.size() + 1;
+			for (int i = 1; i < 6; i++) {
+				submission[i] = (String) current[i - 1];
+			}
+			submission[6] = new ImageIcon(((Image) current[6]).getScaledInstance(100,  100, Image.SCALE_DEFAULT));
+			submission[7] = false;
+			((DefaultTableModel) myTable.getModel()).addRow(submission);
+			myContestants.add(submission);
+		}
+	}
+	
 }

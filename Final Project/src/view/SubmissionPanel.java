@@ -240,7 +240,7 @@ public class SubmissionPanel extends Observable {
 							myID.getText(), myImage.getImage()};
 					// Send to database
 					setChanged();
-//					notifyObservers(contestant);
+					notifyObservers(contestant);
 					submissionDB.addData(contestant);
 					clearChanged();
 					JOptionPane.showMessageDialog(myPanel, "Submission successful, "
