@@ -70,7 +70,7 @@ public class SubmissionDB  {
 	 * @return false on successful read, true on failed read
 	 * @author Cody Cates
 	 */
-	private ArrayList<Object[]> recallSubmissions() {
+	public ArrayList<Object[]> recallSubmissions() {
 		int i;
 		String[] tempArray;
 		Object[] subArray;
@@ -101,7 +101,7 @@ public class SubmissionDB  {
 				subArray = new Object[7];
 				for(i = 0; i < tempArray.length; i++) 
 					subArray[i] = tempArray[i];
-				subArray[i] = new ImageIcon(ImageIO.read(inputImgFile));
+				subArray[i] = ImageIO.read(inputImgFile);
 				
 				// add submission array into ArrayList of submissions
 				retList.add(subArray);

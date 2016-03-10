@@ -5,11 +5,14 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -165,6 +168,18 @@ public class GUI extends JFrame implements Observer {
 	public static void main(final String... theArgs) {
 		TemplateDB db = new TemplateDB();
 		SubmissionDB subDB = new SubmissionDB();
+		ArrayList<Object[]> list = subDB.recallSubmissions();
+		for(int i = 0; i < list.size(); i++) {
+			Object[] contestantData = list.get(i);
+			String name = (String) contestantData[0];
+			String lastName = (String) contestantData[1];
+			String age = (String) contestantData[2];
+			String email = (String) contestantData[3];
+			String phone = (String) contestantData[4];
+			String id = (String) contestantData[5];
+			Image myImage = (Image) contestantData[6];
+			System.out.println(name + " " + lastName + " " + age + " " + email + " " + phone + " " + id);
+		}
 		@SuppressWarnings("unused")
 		GUI gui = new GUI(subDB);
 	}
