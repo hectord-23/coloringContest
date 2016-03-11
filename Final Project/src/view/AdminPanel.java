@@ -20,10 +20,12 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.RowSorter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -88,6 +90,8 @@ public class AdminPanel extends Observable implements Observer {
 					return Boolean.class;
 				} else if (index == 6) {
 					return ImageIcon.class;
+				} else if (index == 4) {
+					return Integer.class;
 				} else {
 					return String.class;
 				}
@@ -114,7 +118,7 @@ public class AdminPanel extends Observable implements Observer {
 			result[i - 1][1] = current[0];
 			result[i - 1][2] = current[1];
 			result[i - 1][3] = current[3];
-			result[i - 1][4] = current[2];
+			result[i - 1][4] = Integer.parseInt((String) current[2]);
 			result[i - 1][5] = current[5];
 			try {
 				File f = new File("extras/Contestant_Submissions/" + current[5] + ".jpg");
@@ -158,7 +162,7 @@ public class AdminPanel extends Observable implements Observer {
 		myPanel.setBackground(Color.WHITE);
 		myPanel.add(new JScrollPane(myTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
-		myPanel.add(getRemoveButton());
+		myPanel.add(getBottomPanel());
 	}
 	
 	/**
@@ -167,9 +171,37 @@ public class AdminPanel extends Observable implements Observer {
 	 * 
 	 * @return panel containing remove selected button
 	 */
-	private JPanel getRemoveButton() {
+	private JPanel getBottomPanel() {
 		final JPanel panel = new JPanel();
 		final JButton button = new JButton("Delete Selected");
+		final JButton clear = new JButton("Clear Selected");
+		final JLabel label = new JLabel("Select Range");
+		final String[] items = new String[]{"--", "5-7", "8-10", "11-13", "14-16", "17-19", "19+"};
+		final JComboBox<String> box = new JComboBox<String>(items);
+		box.setBackground(Color.WHITE);
+		box.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent theEvent) {
+				int age = 3 * box.getSelectedIndex() + 2;
+				for (int i = 0; i < myTable.getRowCount(); i++) {
+					if ((int) myTable.getValueAt(i, 4) >= age && ((int) myTable.getValueAt(i, 4) <= age + 2 || age == 20)) {
+						((DefaultTableModel) myTable.getModel()).setValueAt(true, i, 7);
+					} else {
+						// Otherwise uncheck
+						((DefaultTableModel) myTable.getModel()).setValueAt(false, i, 7);
+					}
+				}
+				
+			}
+		});
+		clear.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent theEvent) {
+				for (int i = 0; i < myTable.getRowCount(); i++) {
+					((DefaultTableModel) myTable.getModel()).setValueAt(false, i, 7);
+				}
+			}
+		});
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
@@ -182,7 +214,11 @@ public class AdminPanel extends Observable implements Observer {
 				}
 			}
 		});
+		
+		panel.add(label);
+		panel.add(box);
 		panel.add(button);
+		panel.add(clear);
 		panel.setBackground(Color.WHITE);
 		return panel;
 	}
@@ -238,7 +274,11 @@ public class AdminPanel extends Observable implements Observer {
 			final Object[] submission = new Object[8];
 			submission[0] = myContestants.size() + 1;
 			for (int i = 1; i < 6; i++) {
-				submission[i] = (String) current[i - 1];
+				if (i == 4) {
+					submission[i] = Integer.parseInt((String) current[i - 1]);
+				} else {
+					submission[i] = (String) current[i - 1];
+				}
 			}
 			submission[6] = new ImageIcon(((Image) current[6]).getScaledInstance(100,  100, Image.SCALE_DEFAULT));
 			submission[7] = false;
