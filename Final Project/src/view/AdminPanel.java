@@ -24,7 +24,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowSorter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import model.SubmissionDB;
 
@@ -151,6 +154,8 @@ public class AdminPanel extends Observable implements Observer {
 		myTable.getColumnModel().getColumn(7).setMaxWidth(30);
 		myTable.getColumnModel().getColumn(4).setMaxWidth(30);
 		myTable.setBackground(Color.WHITE);
+		final RowSorter<TableModel> sorter = new TableRowSorter<TableModel>(myTable.getModel());
+		myTable.setRowSorter(sorter);
 		myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
 		myPanel.setAlignmentY(JPanel.CENTER_ALIGNMENT);
 		myPanel.add(createHeader());
@@ -183,8 +188,8 @@ public class AdminPanel extends Observable implements Observer {
 	 */
 	private JPanel createHeader() {
 		final JPanel panel = new JPanel();
-		final JLabel left = new JLabel("<html>Clark<br>County<br>Library<html>");
-		final JLabel center = new JLabel("<html>Coloring<br>Contest<br>Submission<html>");
+		final JLabel left = new JLabel("<html><center>Clark<br>County<br>Library</center><html>");
+		final JLabel center = new JLabel("<html><center>Coloring<br>Contest<br>Submission</center><html>");
 		final JButton button = new JButton("Logout");
 		final Font font = new Font(Font.SANS_SERIF, Font.BOLD, 15);
 

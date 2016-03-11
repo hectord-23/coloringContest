@@ -366,8 +366,8 @@ public class SubmissionPanel extends Observable {
 	 */
 	private JPanel createHeader() {
 		final JPanel panel = new JPanel();
-		final JLabel left = new JLabel("<html>Clark<br>County<br>Library<html>");
-		final JLabel center = new JLabel("<html>Coloring<br>Contest<br>Submission<html>");
+		final JLabel left = new JLabel("<html><center>Clark<br>County<br>Library</center><html>");
+		final JLabel center = new JLabel("<html><center>Coloring<br>Contest<br>Submission</center><html>");
 		final Font font = new Font(Font.SANS_SERIF, Font.BOLD, 15);
 		
 		assignGoHome(myGoHome);
