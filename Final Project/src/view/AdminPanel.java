@@ -74,7 +74,6 @@ public class AdminPanel extends Observable implements Observer {
 	public AdminPanel(final SubmissionDB theDB) {
 		myPanel = new JPanel();
 		myFile = new File("./extras/administrator_downloads");
-		myTableElements = loadSubmissions();
 		myContestants = theDB.recallSubmissions();
 		myTableElements = initializeTable();
 		myColumnNames = new Object[]{"", "First Name", "Last Name", "Contact", "Age", "ID", "Submission", ""};
@@ -84,6 +83,7 @@ public class AdminPanel extends Observable implements Observer {
 			private static final long serialVersionUID = 3368531531283619989L;
 			@Override
 			public Class<?> getColumnClass(final int index) {
+				// allows image and checkbox to be displayed in table
 				if (index == 7) {
 					return Boolean.class;
 				} else if (index == 6) {
@@ -101,6 +101,11 @@ public class AdminPanel extends Observable implements Observer {
 		addComponents();
 	}
 	
+	/**
+	 * Initializes the table and loads the submissions from the data base.
+	 * 
+	 * @return a 2D array containing submission data
+	 */
 	private Object[][] initializeTable() {
 		final Object[][] result = new Object[myContestants.size()][8];
 		int i = 1;
@@ -126,16 +131,6 @@ public class AdminPanel extends Observable implements Observer {
 	}
 	
 	/**
-	 * Load the submissions from the submissions directory.
-	 * 
-	 * @return the loaded submissions
-	 */
-	private Object[][] loadSubmissions() {
-		
-		return null;
-	}
-	
-	/**
 	 * Return this panel.
 	 * 
 	 * @return this panel
@@ -154,8 +149,8 @@ public class AdminPanel extends Observable implements Observer {
 		myTable.getColumnModel().getColumn(7).setMaxWidth(30);
 		myTable.getColumnModel().getColumn(4).setMaxWidth(30);
 		myTable.setBackground(Color.WHITE);
-		final RowSorter<TableModel> sorter = new TableRowSorter<TableModel>(myTable.getModel());
-		myTable.setRowSorter(sorter);
+		myTable.setFont(SubmissionPanel.LABEL_FONT);
+		
 		myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
 		myPanel.setAlignmentY(JPanel.CENTER_ALIGNMENT);
 		myPanel.add(createHeader());
@@ -163,6 +158,33 @@ public class AdminPanel extends Observable implements Observer {
 		myPanel.setBackground(Color.WHITE);
 		myPanel.add(new JScrollPane(myTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
+		myPanel.add(getRemoveButton());
+	}
+	
+	/**
+	 * Get the panel with the remove selected button. Allows the administrator to remove 
+	 * selected submissions.
+	 * 
+	 * @return panel containing remove selected button
+	 */
+	private JPanel getRemoveButton() {
+		final JPanel panel = new JPanel();
+		final JButton button = new JButton("Delete Selected");
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent theEvent) {
+				for (int i = 0; i < myTable.getRowCount(); i++) {
+					if ((boolean) myTable.getValueAt(i, 7) == true) {
+						((DefaultTableModel)myTable.getModel()).removeRow(i);
+						myDataBase.deleteContestant(i + 1);
+						i--;
+					}
+				}
+			}
+		});
+		panel.add(button);
+		panel.setBackground(Color.WHITE);
+		return panel;
 	}
 	
 	/**

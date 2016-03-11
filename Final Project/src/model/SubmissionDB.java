@@ -54,7 +54,7 @@ public class SubmissionDB  {
 	/**
 	 * Delete a contestant from the database.
 	 */
-	public void deleteContestant() {
+	public void deleteContestant(final int theContestant) {
 		//TODO Param to select contestant
 	}
 	

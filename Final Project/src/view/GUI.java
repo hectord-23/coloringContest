@@ -126,7 +126,7 @@ public class GUI extends JFrame implements Observer {
 		myLayout.addLayoutComponent(mySubmitPanel, GUI.SUBMIT);
 		myLayout.addLayoutComponent(myTemplatePanel, GUI.TEMPLATES);
 		myLayout.addLayoutComponent(myAdminPanel, GUI.ADMIN);
-		myLayout.show(cardPanel, GUI.INTRO);
+		myLayout.show(cardPanel, GUI.INTRO); // Set which panel to display upon startup
 		cardPanel.revalidate();
 	}
 	
@@ -143,7 +143,7 @@ public class GUI extends JFrame implements Observer {
 		final JLabel password = new JLabel("Passowrd: ");
 		final JTextField user = new JTextField(10);
 		final JPasswordField pass = new JPasswordField(10);
-		final String[] options = new String[]{"OK", "Cancel"};
+		final String[] options = new String[]{"Login", "Cancel"};
 		
 		passPanel.add(password);
 		passPanel.add(pass);
@@ -154,7 +154,7 @@ public class GUI extends JFrame implements Observer {
 		panel.add(passPanel);
 		int option = JOptionPane.showOptionDialog(this, panel, "Login",
 				JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE,
-				null, options, options[1]);
+				null, options, options[0]);
 		final String parsedPassword = new String(pass.getPassword());
 		// Verify that correct credentials were entered
 		if (option == 0 && AdminPanel.PASSWORD.equals(parsedPassword) 
@@ -175,18 +175,18 @@ public class GUI extends JFrame implements Observer {
 	public static void main(final String... theArgs) {
 		TemplateDB db = new TemplateDB();
 		SubmissionDB subDB = new SubmissionDB();
-		List<Object[]> list = subDB.recallSubmissions();
-		for(int i = 0; i < list.size(); i++) {
-			Object[] contestantData = list.get(i);
-			String name = (String) contestantData[0];
-			String lastName = (String) contestantData[1];
-			String age = (String) contestantData[2];
-			String email = (String) contestantData[3];
-			String phone = (String) contestantData[4];
-			String id = (String) contestantData[5];
-			Image myImage = (Image) contestantData[6];
-//			System.out.println(name + " " + lastName + " " + age + " " + email + " " + phone + " " + id);
-		}
+//		List<Object[]> list = subDB.recallSubmissions();
+//		for(int i = 0; i < list.size(); i++) {
+//			Object[] contestantData = list.get(i);
+//			String name = (String) contestantData[0];
+//			String lastName = (String) contestantData[1];
+//			String age = (String) contestantData[2];
+//			String email = (String) contestantData[3];
+//			String phone = (String) contestantData[4];
+//			String id = (String) contestantData[5];
+//			Image myImage = (Image) contestantData[6];
+////			System.out.println(name + " " + lastName + " " + age + " " + email + " " + phone + " " + id);
+//		}
 		@SuppressWarnings("unused")
 		GUI gui = new GUI(subDB);
 	}
