@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Observable;
 import java.util.Scanner;
 
@@ -42,7 +44,7 @@ public class IntroPanel extends Observable {
 	
 	/** Scroll pane that allows the details panel to be scrollable. */
     private final JScrollPane myScrollPane;
-	
+    
 	/**
 	 * Initialize a new Intro Panel.
 	 */
@@ -64,7 +66,6 @@ public class IntroPanel extends Observable {
 		final JPanel buttons = getButtonsPanel();
 		final JLabel label = new JLabel("Clark County Library Coloring Contest");
 
-
 		label.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
 		
 		northPanel.setBackground(Color.WHITE);
@@ -75,9 +76,10 @@ public class IntroPanel extends Observable {
 		centerPanel.add(myScrollPane);
 		centerPanel.add(buttons);
 
+		buttons.setBackground(Color.WHITE);
+
 		myScrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-		buttons.setBackground(Color.WHITE);
 		myPanel.add(northPanel, BorderLayout.NORTH);
 		myPanel.add(centerPanel);
 		myPanel.setOpaque(false);

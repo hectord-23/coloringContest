@@ -185,7 +185,7 @@ public class GUI extends JFrame implements Observer {
 			String phone = (String) contestantData[4];
 			String id = (String) contestantData[5];
 			Image myImage = (Image) contestantData[6];
-			System.out.println(name + " " + lastName + " " + age + " " + email + " " + phone + " " + id);
+//			System.out.println(name + " " + lastName + " " + age + " " + email + " " + phone + " " + id);
 		}
 		@SuppressWarnings("unused")
 		GUI gui = new GUI(subDB);

@@ -37,10 +37,10 @@ import model.SubmissionDB;
 public class AdminPanel extends Observable implements Observer {
 	
 	/** The username for the administrator. */
-	protected static final String USERNAME = "";
+	protected static final String USERNAME = "admin";
 	
 	/** The password for the administrator. */
-	protected static final String PASSWORD = "";
+	protected static final String PASSWORD = "password";
 	
 	/** Panel that holds all components for this page. */
 	private JPanel myPanel;
@@ -109,10 +109,9 @@ public class AdminPanel extends Observable implements Observer {
 			result[i - 1][5] = current[5];
 			try {
 				File f = new File("extras/Contestant_Submissions/" + current[5] + ".jpg");
-				System.out.println("file is: " + f.toString());
 				Image img = ImageIO.read(f);
 				ImageIcon icon = new ImageIcon(img.getScaledInstance(100, 100, Image.SCALE_DEFAULT));
-				result[i - 1][6] = icon;//new ImageIcon(((Image) ImageIO.read(f)).getScaledInstance(100,  100, Image.SCALE_DEFAULT));
+				result[i - 1][6] = icon;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -146,7 +145,6 @@ public class AdminPanel extends Observable implements Observer {
 	 */
 	private void addComponents() {
 		myTable.getTableHeader().setReorderingAllowed(false);
-//		myTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		myTable.setRowHeight(100);
 		myTable.getColumnModel().getColumn(0).setMaxWidth(30);
 		myTable.getColumnModel().getColumn(7).setMaxWidth(30);
