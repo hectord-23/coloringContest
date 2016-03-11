@@ -7,11 +7,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -76,13 +73,13 @@ public class AdminPanel extends Observable implements Observer {
 		myTableElements = loadSubmissions();
 		myContestants = theDB.recallSubmissions();
 		myTableElements = initializeTable();
-		myColumnNames = new Object[]{"", "First Name", "Last Name", "Contact", "Age", "ID", "Submission", false};
+		myColumnNames = new Object[]{"", "First Name", "Last Name", "Contact", "Age", "ID", "Submission", ""};
 		myDataBase = theDB;
 		myTable = new JTable(new DefaultTableModel(myTableElements, myColumnNames)) {
 			/** A generated serial version UID. */
 			private static final long serialVersionUID = 3368531531283619989L;
 			@Override
-			public Class getColumnClass(final int index) {
+			public Class<?> getColumnClass(final int index) {
 				if (index == 7) {
 					return Boolean.class;
 				} else if (index == 6) {
@@ -93,7 +90,7 @@ public class AdminPanel extends Observable implements Observer {
 			}
 			@Override
 			public boolean isCellEditable(int row, int column) {
-				return false;
+				return column == 7;
 			}
 		};
 		myTable.setMinimumSize(new Dimension(560, 100));
@@ -104,7 +101,6 @@ public class AdminPanel extends Observable implements Observer {
 		final Object[][] result = new Object[myContestants.size()][8];
 		int i = 1;
 		for (final Object[] current : myContestants) {
-			final Object[] temp = new Object[8];
 			result[i - 1][0] = i;
 			result[i - 1][1] = current[0];
 			result[i - 1][2] = current[1];
@@ -122,7 +118,6 @@ public class AdminPanel extends Observable implements Observer {
 			}
 		    result[i - 1][7] = false;
 			i++;
-//			((DefaultTableModel) myTable.getModel()).addRow(result);
 		}
 		return result;
 	}

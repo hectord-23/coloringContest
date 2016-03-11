@@ -7,13 +7,11 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,6 +22,12 @@ import javax.swing.JTextField;
 import model.SubmissionDB;
 import model.TemplateDB;
 	
+/**
+ * This class is the main driver for the coloring contest and displays the user interface.
+ * 
+ * @author Jonah Howard
+ * @version 10 March 2016
+ */
 public class GUI extends JFrame implements Observer {
 	
 	/** A generated Serial Version UID. */
@@ -64,7 +68,8 @@ public class GUI extends JFrame implements Observer {
 
 	/**
 	 * Initializes a new contest GUI.
-	 * @param subDB 
+	 * 
+	 * @param subDB the submission database 
 	 */
 	public GUI(SubmissionDB subDB) {
 		super("TCSS 360 - Fist Full of Java");
@@ -117,11 +122,11 @@ public class GUI extends JFrame implements Observer {
 	 * Sets up the layout manager.
 	 */
 	private void setUpLayoutManager() {
-		myLayout.addLayoutComponent(myIntroPanel, "INTRO");
-		myLayout.addLayoutComponent(mySubmitPanel, "SUBMIT");
-		myLayout.addLayoutComponent(myTemplatePanel, "TEMPLATES");
-		myLayout.addLayoutComponent(myAdminPanel, "ADMIN");
-		myLayout.show(cardPanel, "INTRO");
+		myLayout.addLayoutComponent(myIntroPanel, GUI.INTRO);
+		myLayout.addLayoutComponent(mySubmitPanel, GUI.SUBMIT);
+		myLayout.addLayoutComponent(myTemplatePanel, GUI.TEMPLATES);
+		myLayout.addLayoutComponent(myAdminPanel, GUI.ADMIN);
+		myLayout.show(cardPanel, GUI.INTRO);
 		cardPanel.revalidate();
 	}
 	
@@ -192,13 +197,13 @@ public class GUI extends JFrame implements Observer {
 		if (theObject instanceof String) {
 			String input = (String) theObject;
 			switch (input) {
-				case "INTRO":
-				case "SUBMIT":
-				case "TEMPLATES": {
+				case GUI.INTRO:
+				case GUI.SUBMIT:
+				case GUI.TEMPLATES: {
 					myLayout.show(cardPanel, input);
 					cardPanel.revalidate();
 					break;
-				} case "ADMIN": {	// dependent on correct credentials being entered
+				} case GUI.ADMIN: {	// dependent on correct credentials being entered
 					if (createLoginDialog()) {
 						myLayout.show(cardPanel, input);
 						cardPanel.revalidate();

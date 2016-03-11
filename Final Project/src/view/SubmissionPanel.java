@@ -86,6 +86,7 @@ public class SubmissionPanel extends Observable {
 	/** The current panel. */
 	private final JPanel myPanel;
 	
+	/** The current submissions database. */
 	private final SubmissionDB submissionDB;
 	
 	/**
