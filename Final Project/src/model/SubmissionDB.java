@@ -107,6 +107,7 @@ public class SubmissionDB  {
 				// add submission array into ArrayList of submissions
 				retList.add(subArray);
 			}
+			inputFile.close();
 		} catch (FileNotFoundException e) {
 			System.err.println("FileNotFoundException when opening file from SubmissionsDatabase.");
 			e.printStackTrace(System.err);
@@ -114,6 +115,7 @@ public class SubmissionDB  {
 			System.err.println("IOException reading in image from SubmissionsDataBase.");
 			e.printStackTrace(System.err);
 		}
+		
 		return retList;
 	}
 

@@ -64,7 +64,7 @@ public class TemplatePanel extends Observable {
 	 * Initialize a new Template Panel.
 	 */
 	public TemplatePanel() {
-		myFileChooser = new JFileChooser(new File("./extras/Downloads"));
+		myFileChooser = new JFileChooser(new File("./extras/Templates"));
 		myIcons = new HashMap<JButton, ImageIcon>();
 		myPanel = new JPanel();
 		myTemplates = TemplateDB.getImageIconTemplates();
