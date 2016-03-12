@@ -174,7 +174,7 @@ public class IntroPanel extends Observable {
 	 * 
 	 * @return the intro panel
 	 */
-	protected JPanel getPanel() {
+	public JPanel getPanel() {
 		return myPanel;
 	}
 }
