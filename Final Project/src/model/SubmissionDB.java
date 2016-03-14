@@ -8,15 +8,9 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-
-import controller.Contestant;
-import view.SubmissionPanel;
 
 /**
  * A class to represent the contest submission database.
@@ -28,28 +22,6 @@ import view.SubmissionPanel;
  * @date March 3, 2016
  */
 public class SubmissionDB  {
-	
-	/** A master list to act as the back end data. */
-	private ArrayList<Contestant> mySubmissions;
-	
-	/**
-	 * Constructor to read in persistent data.
-	 */
-	public SubmissionDB() {
-		super();
-		mySubmissions = new ArrayList<Contestant>();
-	}
-	
-
-	
-	/**
-	 * Deep copies mySubmissions and returns it.
-	 * @return A deep copy of the ArrayList of contestants.
-	 */
-	public ArrayList<Contestant> getSubmissions() {
-		
-		return null;
-	}
 	
 	/**
 	 * Delete a contestant from the database.

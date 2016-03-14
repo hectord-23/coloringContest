@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 
 /** 
  * A class to get the coloring templates.
+ * 
  * @author Hector Diaz Contreras.
  * @version 1.0 (03/03-2016)
  *

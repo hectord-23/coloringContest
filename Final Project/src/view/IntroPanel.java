@@ -9,8 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Observable;
 import java.util.Scanner;
 
@@ -61,7 +59,6 @@ public class IntroPanel extends Observable {
 	private void setUpComponents() {
 		final JPanel northPanel = new JPanel();
 		final JPanel centerPanel = new JPanel();
-//		final JPanel details = getDetails();
 		myScrollPane.setPreferredSize(new Dimension(DETAILS_WIDTH, DETAILS_HEIGHT));
 		final JPanel buttons = getButtonsPanel();
 		final JLabel label = new JLabel("Clark County Library Coloring Contest");
@@ -72,7 +69,7 @@ public class IntroPanel extends Observable {
 		northPanel.add(label);
 
 		centerPanel.setBackground(Color.WHITE);
-		centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 75, 0));//BoxLayout(centerPanel, BoxLayout.X_AXIS));
+		centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 75, 0));
 		centerPanel.add(myScrollPane);
 		centerPanel.add(buttons);
 

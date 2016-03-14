@@ -5,9 +5,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.Toolkit;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -73,7 +71,6 @@ public class GUI extends JFrame implements Observer {
 	 */
 	public GUI(SubmissionDB subDB) {
 		super("TCSS 360 - Fist Full of Java");
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		final IntroPanel introPanel = new IntroPanel();
 		final SubmissionPanel submitPanel = new SubmissionPanel(subDB);
 		final AdminPanel adminPanel = new AdminPanel(subDB);
@@ -91,8 +88,6 @@ public class GUI extends JFrame implements Observer {
 		myTemplatePanel = templatePanel.getPanel();
 		myLayout = new CardLayout(5, 5);
 		cardPanel = new JPanel();
-		cardPanel.setBackground(Color.WHITE);
-		
 		
 		setUp();
 		setUpLayoutManager();
@@ -104,6 +99,7 @@ public class GUI extends JFrame implements Observer {
 	 */
 	private void setUp() {
 		final Toolkit kit = Toolkit.getDefaultToolkit();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBackground(Color.WHITE);
 		setSize(600, 600);
 		setLocation((int) (kit.getScreenSize().getWidth() / 2 - getWidth() / 2),
@@ -111,6 +107,7 @@ public class GUI extends JFrame implements Observer {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		cardPanel.setLayout(myLayout);
+		cardPanel.setBackground(Color.WHITE);
 		cardPanel.add(myIntroPanel);
 		cardPanel.add(mySubmitPanel);
 		cardPanel.add(myAdminPanel);
@@ -149,9 +146,11 @@ public class GUI extends JFrame implements Observer {
 		passPanel.add(pass);
 		userPanel.add(username);
 		userPanel.add(user);
+		
 		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
 		panel.add(userPanel);
 		panel.add(passPanel);
+		// Prompt for admin credentials
 		int option = JOptionPane.showOptionDialog(this, panel, "Login",
 				JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE,
 				null, options, options[0]);
@@ -172,9 +171,11 @@ public class GUI extends JFrame implements Observer {
 	 * 
 	 * @param theArgs Command line arguments, to be ignored
 	 */
+	@SuppressWarnings("unused")
 	public static void main(final String... theArgs) {
 		TemplateDB db = new TemplateDB();
 		SubmissionDB subDB = new SubmissionDB();
+		GUI gui = new GUI(subDB);
 //		List<Object[]> list = subDB.recallSubmissions();
 //		for(int i = 0; i < list.size(); i++) {
 //			Object[] contestantData = list.get(i);
@@ -187,8 +188,6 @@ public class GUI extends JFrame implements Observer {
 //			Image myImage = (Image) contestantData[6];
 ////			System.out.println(name + " " + lastName + " " + age + " " + email + " " + phone + " " + id);
 //		}
-		@SuppressWarnings("unused")
-		GUI gui = new GUI(subDB);
 	}
 	
 

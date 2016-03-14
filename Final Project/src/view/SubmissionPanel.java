@@ -9,10 +9,12 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -25,6 +27,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import model.SubmissionDB;
@@ -164,6 +167,17 @@ public class SubmissionPanel extends Observable {
 		
 		final JButton browse = new JButton("Browse");
 		final JButton conditions = new JButton("<html><u>Terms and Conditions<html>");
+		conditions.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent theEvent) {
+				final JScrollPane pane = new JScrollPane(getTerms(), 
+						JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
+						JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+				pane.setPreferredSize(new Dimension(600, 300));
+				JOptionPane.showMessageDialog(myPanel, pane, "Terms and Conditions", 
+						JOptionPane.DEFAULT_OPTION);
+			}
+		});
 		final JButton submit = new JButton("Submit");
 		final JButton cancel = new JButton("Cancel");
 		
@@ -209,6 +223,40 @@ public class SubmissionPanel extends Observable {
 		return panel;
 	}
 	
+	private JPanel getTerms() {
+		final JPanel panel = new JPanel();
+		final JLabel label = new JLabel();
+
+		final StringBuilder result = new StringBuilder();
+		panel.setBackground(Color.WHITE);
+		result.append("<html>");
+		
+        try {
+            final Scanner input = new Scanner(new File("./extras/terms"));
+            Scanner line;
+            final String space = " ";
+            final String newLine = "<br>";
+            while (input.hasNextLine()) {
+                line = new Scanner(input.nextLine());
+                while (line.hasNext()) {
+                    result.append(line.next());
+                    result.append(space);
+                }
+                result.append(newLine);
+            }
+            result.append("<html>");
+            input.close();
+        } catch (final FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        
+        label.setText(result.toString());
+        panel.add(label);
+        myPanel.setPreferredSize(new Dimension(600, 300));
+        myPanel.setMaximumSize(new Dimension(600, 300));
+		return panel;
+	}
+	
 	/**
 	 * Sets the action listener for the submit button.
 	 * 
@@ -233,9 +281,6 @@ public class SubmissionPanel extends Observable {
                             "Error!", JOptionPane.ERROR_MESSAGE);
 				} else {
 					// Obtain relative path of file
-//					String temp = myFile.toString().substring(myFile.toString().lastIndexOf('\\'), myFile.toString().length());
-//					temp = "./extras/Contestant_Submission" + temp;
-//					temp = temp.replace('\\', '/');
 					final Object[] contestant = {myFirstName.getText(), myLastName.getText(), 
 							myAge.getText(), myEmail.getText(), myPhone.getText(), 
 							myID.getText(), myImage.getImage()};
@@ -276,7 +321,8 @@ public class SubmissionPanel extends Observable {
 						myFile = myFileChooser.getSelectedFile();
 						myImage = new ImageIcon(ImageIO.read(myFile));
 						Image img = ImageIO.read(myFile);
-						myIconLabel.setIcon(new ImageIcon(img.getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
+						myIconLabel.setIcon(new ImageIcon(img.getScaledInstance(100, 100, 
+								Image.SCALE_DEFAULT)));
 					} catch (final IOException e) {
 		                JOptionPane.showMessageDialog(null, 
                                 "The selected file did not contain an image!",

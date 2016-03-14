@@ -19,17 +19,12 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.RowSorter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 
 import model.SubmissionDB;
 
@@ -50,9 +45,6 @@ public class AdminPanel extends Observable implements Observer {
 	
 	/** Panel that holds all components for this page. */
 	private JPanel myPanel;
-	
-	/** References the directory that holds all of the submissions. */
-	private final File myFile;
 	
 	/** The table that lists all of the submissions. */
 	private final JTable myTable;
@@ -75,10 +67,10 @@ public class AdminPanel extends Observable implements Observer {
 	 */
 	public AdminPanel(final SubmissionDB theDB) {
 		myPanel = new JPanel();
-		myFile = new File("./extras/administrator_downloads");
 		myContestants = theDB.recallSubmissions();
 		myTableElements = initializeTable();
-		myColumnNames = new Object[]{"", "First Name", "Last Name", "Contact", "Age", "ID", "Submission", ""};
+		myColumnNames = new Object[]{"", "First Name", "Last Name", "Contact", "Age", "ID",
+				"Submission", ""};
 		myDataBase = theDB;
 		myTable = new JTable(new DefaultTableModel(myTableElements, myColumnNames)) {
 			/** A generated serial version UID. */
@@ -123,7 +115,8 @@ public class AdminPanel extends Observable implements Observer {
 			try {
 				File f = new File("extras/Contestant_Submissions/" + current[5] + ".jpg");
 				Image img = ImageIO.read(f);
-				ImageIcon icon = new ImageIcon(img.getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+				ImageIcon icon = new ImageIcon(
+						img.getScaledInstance(100, 100, Image.SCALE_DEFAULT));
 				result[i - 1][6] = icon;
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -175,8 +168,9 @@ public class AdminPanel extends Observable implements Observer {
 		final JPanel panel = new JPanel();
 		final JButton button = new JButton("Delete Selected");
 		final JButton clear = new JButton("Clear Selected");
-		final JLabel label = new JLabel("Select Range");
-		final String[] items = new String[]{"--", "5-7", "8-10", "11-13", "14-16", "17-19", "19+"};
+		final JLabel label = new JLabel("Select Age Range");
+		final String[] items = new String[]{"--", "5-7", "8-10", "11-13", 
+				"14-16", "17-19", "19+"};
 		final JComboBox<String> box = new JComboBox<String>(items);
 		box.setBackground(Color.WHITE);
 		box.addActionListener(new ActionListener() {
@@ -184,8 +178,10 @@ public class AdminPanel extends Observable implements Observer {
 			public void actionPerformed(final ActionEvent theEvent) {
 				int age = 3 * box.getSelectedIndex() + 2;
 				for (int i = 0; i < myTable.getRowCount(); i++) {
-					if ((int) myTable.getValueAt(i, 4) >= age && ((int) myTable.getValueAt(i, 4) <= age + 2 || age == 20)) {
+					if ((int) myTable.getValueAt(i, 4) >= age 
+							&& ((int) myTable.getValueAt(i, 4) <= age + 2 || age == 20)) {
 						((DefaultTableModel) myTable.getModel()).setValueAt(true, i, 7);
+						System.out.println(i + "\n");
 					} else {
 						// Otherwise uncheck
 						((DefaultTableModel) myTable.getModel()).setValueAt(false, i, 7);
@@ -205,6 +201,7 @@ public class AdminPanel extends Observable implements Observer {
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
+				// Search for and remove selected contestants
 				for (int i = 0; i < myTable.getRowCount(); i++) {
 					if ((boolean) myTable.getValueAt(i, 7) == true) {
 						((DefaultTableModel)myTable.getModel()).removeRow(i);
@@ -246,8 +243,10 @@ public class AdminPanel extends Observable implements Observer {
 	 */
 	private JPanel createHeader() {
 		final JPanel panel = new JPanel();
-		final JLabel left = new JLabel("<html><center>Clark<br>County<br>Library</center><html>");
-		final JLabel center = new JLabel("<html><center>Coloring<br>Contest<br>Submission</center><html>");
+		final JLabel left = new JLabel("<html><center>Clark<br>County<br>Library"
+				+ "</center><html>");
+		final JLabel center = new JLabel("<html><center>Coloring<br>Contest<br>Submission"
+				+ "</center><html>");
 		final JButton button = new JButton("Logout");
 		final Font font = new Font(Font.SANS_SERIF, Font.BOLD, 15);
 
@@ -270,8 +269,10 @@ public class AdminPanel extends Observable implements Observer {
 	@Override
 	public void update(final Observable arg0, final Object theObject) {
 		if (theObject instanceof Object[]) {
+			// Add a new submission
 			final Object[] current = (Object[]) theObject;
 			final Object[] submission = new Object[8];
+			// Fill columns of the table
 			submission[0] = myContestants.size() + 1;
 			for (int i = 1; i < 6; i++) {
 				if (i == 4) {
@@ -280,7 +281,8 @@ public class AdminPanel extends Observable implements Observer {
 					submission[i] = (String) current[i - 1];
 				}
 			}
-			submission[6] = new ImageIcon(((Image) current[6]).getScaledInstance(100,  100, Image.SCALE_DEFAULT));
+			submission[6] = new ImageIcon(((Image) current[6]).getScaledInstance(
+					100,  100, Image.SCALE_DEFAULT));
 			submission[7] = false;
 			((DefaultTableModel) myTable.getModel()).addRow(submission);
 			myContestants.add(submission);

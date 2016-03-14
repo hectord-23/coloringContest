@@ -1,7 +1,7 @@
 /**
  * 
  */
-package view;
+package tests;
 
 import static org.junit.Assert.*;
 
@@ -13,6 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import view.AdminPanel;
 import controller.Administrator;
 
 /**
