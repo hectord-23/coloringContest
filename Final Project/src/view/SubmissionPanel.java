@@ -212,7 +212,6 @@ public class SubmissionPanel extends Observable {
 		termsConditions.add(conditions);
 		
 		// Add all components to the main panel for this section
-//		panel.add(top);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.setBackground(Color.WHITE);
 		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -439,5 +438,4 @@ public class SubmissionPanel extends Observable {
 	public JPanel getPanel() {
 		return myPanel;
 	}
-	
 }

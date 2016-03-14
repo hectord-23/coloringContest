@@ -101,7 +101,8 @@ public class TemplatePanel extends Observable {
 		for (final ImageIcon current : myTemplates) {
 			final Image img = current.getImage();
 			// shrink the image to fit on a button
-			final ImageIcon smallImg = new ImageIcon(img.getScaledInstance(150, 150, Image.SCALE_DEFAULT));
+			final ImageIcon smallImg = new ImageIcon(img.getScaledInstance(150, 150, 
+					Image.SCALE_DEFAULT));
 			final JButton button = new JButton(smallImg);
 			list.add(button);
 			myIcons.put(button, current);
@@ -117,11 +118,12 @@ public class TemplatePanel extends Observable {
 	 */
 	private JPanel getImages() {
 		final JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout((int) Math.ceil((double) myTemplates.size() / 3), 3, 5, 20));
+		panel.setLayout(new GridLayout((int) Math.ceil((double) myTemplates.size() / 3), 3, 0, 0));
 		panel.setBackground(Color.WHITE);
 		for (final JButton button : myButtons) {
 			button.setBackground(Color.WHITE);
 			button.setBorder(BorderFactory.createEmptyBorder());
+			button.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			button.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(final ActionEvent theEvent) {

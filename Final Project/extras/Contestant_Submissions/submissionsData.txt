@@ -1,10 +1,10 @@
 Patric idk 5 pat.gmail.com 123456789 123056
 Carl Simpsons 15 carlSim@gmail.com 456321458 123010
 first last 22 blah@email.com 2290130293 258745
-John Smith 23 blah@blah.com 123598134 123540
-Carlos Santana 123 Carlos@guitar.com 1234 918273
-Kim Kardashian 1234 Kim@Kardashian.com 45 123554
-Michael Scott 234 MScott@Dundermifflin.com 132948 123984
-Donald Trump 23 donald@trump.com 1239847 124523
-Bob Mr 23 alksjdflkjlksjl 1324089 192837
-Jonah Howard 21 jonahkh@uw.edu 2533121033 122910
+John Smith 10 blah@blah.com 123598134 123540
+Carlos Santana 12 Carlos@guitar.com 12 918273
+Kim Kardashian 12 Kim@Kardashian.com 45 123554
+Michael Scott 13 MScott@Dundermifflin.com 132948 123984
+Donald Trump 8 donald@trump.com 1239847 124523
+Bob Mr 9 alksjdflkjlksjl 1324089 192837
+Jonah Howard 14 jonahkh@uw.edu 2533121033 122910
