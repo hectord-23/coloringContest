@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -10,10 +11,8 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-
 import java.io.File;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,7 +80,13 @@ public class TemplatePanel extends Observable {
 		myPanel.setBackground(Color.WHITE);
 
 		myPanel.add(createHeader());
-		myPanel.add(Box.createVerticalStrut(30));
+		final JPanel panel = new JPanel(new FlowLayout());
+		final JLabel label = new JLabel("Please select a template to download");
+		label.setFont(SubmissionPanel.LABEL_FONT);
+		panel.setBackground(Color.WHITE);
+		panel.setMaximumSize(new Dimension(600, 100));
+		panel.add(label);
+		myPanel.add(panel);
 		myPanel.add(myScrollPane);
 		
 		myScrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -127,7 +132,7 @@ public class TemplatePanel extends Observable {
 			button.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(final ActionEvent theEvent) {
-					int result = myFileChooser.showSaveDialog(myPanel);
+					final int result = myFileChooser.showSaveDialog(myPanel);
 					if (result == JFileChooser.APPROVE_OPTION) {
 						File f = myFileChooser.getSelectedFile();
 						Image img = myIcons.get(button).getImage();
@@ -165,8 +170,10 @@ public class TemplatePanel extends Observable {
 	private JPanel createHeader() {
 		final JPanel panel = new JPanel();
 		final Font font = new Font(Font.SANS_SERIF, Font.BOLD, 15);
-		final JLabel left = new JLabel("<html><center>Clark<br>County<br>Library</center><html>");
-		final JLabel center = new JLabel("<html><center>Coloring<br>Contest<br>Submission</center><html>");
+		final JLabel left = new JLabel("<html><center>Clark<br>County<br>Library</center>"
+				+ "<html>");
+		final JLabel center = new JLabel("<html><center>Coloring<br>Contest<br>Submission"
+				+ "</center><html>");
 		final JButton button = new JButton("Go Home");
 		
 		assignGoHome(button);
