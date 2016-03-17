@@ -202,6 +202,7 @@ public class AdminPanel extends Observable implements Observer {
 			public void actionPerformed(final ActionEvent theEvent) {
 				// Search for and remove selected contestants
 				for (int i = 0; i < myTable.getRowCount(); i++) {
+					myTable.setValueAt(i + 1, i, 0);	// Update the first column
 					if ((boolean) myTable.getValueAt(i, 7) == true) {
 						((DefaultTableModel)myTable.getModel()).removeRow(i);
 						myDataBase.deleteContestant(i + 1);
