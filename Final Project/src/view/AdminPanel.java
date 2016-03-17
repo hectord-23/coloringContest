@@ -78,14 +78,16 @@ public class AdminPanel extends Observable implements Observer {
 			@Override
 			public Class<?> getColumnClass(final int index) {
 				// allows image and checkbox to be displayed in table
-				if (index == 7) {
-					return Boolean.class;
-				} else if (index == 6) {
-					return ImageIcon.class;
-				} else if (index == 4) {
-					return Integer.class;
-				} else {
-					return String.class;
+				switch (index) {
+					case 7: {
+						return Boolean.class;
+					} case 6: {
+						return ImageIcon.class;
+					} case 4: {
+						return Integer.class;
+					} default: {
+						return String.class;
+					}
 				}
 			}
 			@Override

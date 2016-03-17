@@ -59,7 +59,6 @@ public class IntroPanel extends Observable {
 	private void setUpComponents() {
 		final JPanel northPanel = new JPanel();
 		final JPanel centerPanel = new JPanel();
-		myScrollPane.setPreferredSize(new Dimension(DETAILS_WIDTH, DETAILS_HEIGHT));
 		final JPanel buttons = getButtonsPanel();
 		final JLabel label = new JLabel("Clark County Library Coloring Contest");
 
@@ -75,6 +74,7 @@ public class IntroPanel extends Observable {
 
 		buttons.setBackground(Color.WHITE);
 
+		myScrollPane.setPreferredSize(new Dimension(DETAILS_WIDTH, DETAILS_HEIGHT));
 		myScrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		myPanel.add(northPanel, BorderLayout.NORTH);

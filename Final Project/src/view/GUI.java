@@ -176,18 +176,6 @@ public class GUI extends JFrame implements Observer {
 		TemplateDB db = new TemplateDB();
 		SubmissionDB subDB = new SubmissionDB();
 		GUI gui = new GUI(subDB);
-//		List<Object[]> list = subDB.recallSubmissions();
-//		for(int i = 0; i < list.size(); i++) {
-//			Object[] contestantData = list.get(i);
-//			String name = (String) contestantData[0];
-//			String lastName = (String) contestantData[1];
-//			String age = (String) contestantData[2];
-//			String email = (String) contestantData[3];
-//			String phone = (String) contestantData[4];
-//			String id = (String) contestantData[5];
-//			Image myImage = (Image) contestantData[6];
-////			System.out.println(name + " " + lastName + " " + age + " " + email + " " + phone + " " + id);
-//		}
 	}
 	
 

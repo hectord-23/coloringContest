@@ -167,6 +167,8 @@ public class SubmissionPanel extends Observable {
 		
 		final JButton browse = new JButton("Browse");
 		final JButton conditions = new JButton("<html><u>Terms and Conditions<html>");
+		final JButton submit = new JButton("Submit");
+		final JButton cancel = new JButton("Cancel");
 		conditions.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
@@ -178,8 +180,6 @@ public class SubmissionPanel extends Observable {
 						JOptionPane.DEFAULT_OPTION);
 			}
 		});
-		final JButton submit = new JButton("Submit");
-		final JButton cancel = new JButton("Cancel");
 		
 		// Format all components
 		addBrowseListener(browse);
@@ -225,9 +225,8 @@ public class SubmissionPanel extends Observable {
 	private JPanel getTerms() {
 		final JPanel panel = new JPanel();
 		final JLabel label = new JLabel();
-
 		final StringBuilder result = new StringBuilder();
-		panel.setBackground(Color.WHITE);
+		
 		result.append("<html>");
 		
         try {
@@ -243,7 +242,7 @@ public class SubmissionPanel extends Observable {
                 }
                 result.append(newLine);
             }
-            result.append("<html>");
+            result.append("</html>");
             input.close();
         } catch (final FileNotFoundException e) {
             e.printStackTrace();
@@ -251,6 +250,8 @@ public class SubmissionPanel extends Observable {
         
         label.setText(result.toString());
         panel.add(label);
+        panel.setBackground(Color.WHITE);
+
         myPanel.setPreferredSize(new Dimension(600, 300));
         myPanel.setMaximumSize(new Dimension(600, 300));
 		return panel;
@@ -286,8 +287,9 @@ public class SubmissionPanel extends Observable {
 					// Send to database
 					setChanged();
 					notifyObservers(contestant);
-					submissionDB.addData(contestant);
 					clearChanged();
+
+					submissionDB.addData(contestant);
 					JOptionPane.showMessageDialog(myPanel, "Submission successful, "
 							+ "going back to the home page.", "Submission Successful!", 
 							JOptionPane.INFORMATION_MESSAGE);

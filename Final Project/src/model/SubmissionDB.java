@@ -23,6 +23,8 @@ import javax.imageio.ImageIO;
  */
 public class SubmissionDB  {
 	
+	/** The file name for the text file with all of the submission data. */
+	public static final String SUBMISSIONS = "extras/Contestant_Submissions/submissionsData.txt";
 	/**
 	 * Delete a contestant from the database.
 	 */
@@ -53,7 +55,7 @@ public class SubmissionDB  {
 		
 		try {
 			// Open submission file and scan it.
-			inputFile = new Scanner(new File("extras/Contestant_Submissions/submissionsData.txt"));
+			inputFile = new Scanner(new File(SUBMISSIONS));
 			while (inputFile.hasNextLine()) {
 				
 				// Read a line and split it into a temporary array by spaces
@@ -115,7 +117,7 @@ public class SubmissionDB  {
 		Scanner inputFile = null;
 		final StringBuilder sb = new StringBuilder();
 		try {
-			inputFile = new Scanner(new File("extras/Contestant_Submissions/submissionsData.txt"));
+			inputFile = new Scanner(new File(SUBMISSIONS));
 		} catch(Exception e) {
 		 	System.out.println("Difficulties opening the file! " + e);
 //			System.exit(1);
@@ -128,7 +130,7 @@ public class SubmissionDB  {
 //		System.out.println("DATA IN  FILE: " + sb.toString());
 		inputFile.close();
 		try {
-			outputFile = new PrintStream(new File("extras/Contestant_Submissions/submissionsData.txt"));
+			outputFile = new PrintStream(new File(SUBMISSIONS));
 		} catch (FileNotFoundException e) {
 			System.out.println("Difficulties opening the file! " + e);
 		  }

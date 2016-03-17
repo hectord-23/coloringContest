@@ -76,16 +76,17 @@ public class TemplatePanel extends Observable {
 	 * Set up this panel and add all of its components.
 	 */
 	private void addComponents() {
-		myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
-		myPanel.setBackground(Color.WHITE);
-
-		myPanel.add(createHeader());
 		final JPanel panel = new JPanel(new FlowLayout());
 		final JLabel label = new JLabel("Please select a template to download");
+
 		label.setFont(SubmissionPanel.LABEL_FONT);
 		panel.setBackground(Color.WHITE);
 		panel.setMaximumSize(new Dimension(600, 100));
 		panel.add(label);
+
+		myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
+		myPanel.setBackground(Color.WHITE);
+		myPanel.add(createHeader());
 		myPanel.add(panel);
 		myPanel.add(myScrollPane);
 		
