@@ -181,7 +181,6 @@ public class AdminPanel extends Observable implements Observer {
 					if ((int) myTable.getValueAt(i, 4) >= age 
 							&& ((int) myTable.getValueAt(i, 4) <= age + 2 || age == 20)) {
 						((DefaultTableModel) myTable.getModel()).setValueAt(true, i, 7);
-						System.out.println(i + "\n");
 					} else {
 						// Otherwise uncheck
 						((DefaultTableModel) myTable.getModel()).setValueAt(false, i, 7);
