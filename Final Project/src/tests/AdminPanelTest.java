@@ -14,7 +14,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import view.AdminPanel;
-import controller.Administrator;
 
 /**
  * @author FRANCIS
