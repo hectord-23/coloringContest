@@ -137,7 +137,7 @@ public class GUI extends JFrame implements Observer {
 		final JPanel passPanel = new JPanel(new FlowLayout());
 		final JPanel userPanel = new JPanel(new FlowLayout());
 		final JLabel username = new JLabel("Username: ");
-		final JLabel password = new JLabel("Password: ");
+		final JLabel password = new JLabel("Passowrd: ");
 		final JTextField user = new JTextField(10);
 		final JPasswordField pass = new JPasswordField(10);
 		final String[] options = new String[]{"Login", "Cancel"};
