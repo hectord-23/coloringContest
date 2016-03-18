@@ -29,7 +29,33 @@ public class SubmissionDB  {
 	 * Delete a contestant from the database.
 	 */
 	public void deleteContestant(final int theContestant) {
-		//TODO Param to select contestant
+		int rowCounter = 1;
+		String row[];
+		PrintStream outputFile = null;
+		Scanner inputFile = null;
+		final StringBuilder sb = new StringBuilder();
+		
+		try {
+			inputFile = new Scanner(new File("extras/Contestant_Submissions/submissionsData.txt"));
+			while ( rowCounter != theContestant && inputFile.hasNextLine() ) {
+				sb.append(inputFile.nextLine() + "\n");
+				rowCounter++;
+			}
+			if( rowCounter == theContestant && inputFile.hasNextLine() ) {
+				row = inputFile.nextLine().split(" ");
+				new File("extras/Contestant_Submissions/" + row[5] + ".jpg").delete();
+			}
+			while(inputFile.hasNextLine()) 
+				sb.append(inputFile.nextLine() + "\n");
+			inputFile.close();
+			
+			outputFile = new PrintStream(new File("extras/Contestant_Submissions/submissionsData.txt"));
+			outputFile.print(sb.toString());
+			
+		} catch (FileNotFoundException e) {
+			System.err.println("FileNotFoundException when opening file from SubmissionsDatabase.");
+			e.printStackTrace(System.err);
+		}
 	}
 	
 	/**
