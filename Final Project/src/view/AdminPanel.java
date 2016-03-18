@@ -276,11 +276,19 @@ public class AdminPanel extends Observable implements Observer {
 			final Object[] submission = new Object[8];
 			// Fill columns of the table
 			submission[0] = myContestants.size() + 1;
-			for (int i = 1; i < 6; i++) {
-				if (i == 4) {
-					submission[i] = Integer.parseInt((String) current[i - 1]);
+			for (int i = 0; i < current.length - 1; i++) {
+				if (i == 2) {
+					submission[i + 1] = (String) current[i + 1];
+					submission[i + 2] = (String) current[i];
+					i++;
+				} else if(i == 4){
+					try {
+						submission[i + 1] = Integer.parseInt((String) current[i + 1]);
+					} catch (NumberFormatException e) { // in case is not an integer
+						submission[i + 1] = (String) current[i + 1];
+					}
 				} else {
-					submission[i] = (String) current[i - 1];
+					submission[i + 1] = (String) current[i];
 				}
 			}
 			submission[6] = new ImageIcon(((Image) current[6]).getScaledInstance(
