@@ -1,9 +1,10 @@
 /**
  * 
  */
-package model;
+package tests;
 
 import static org.junit.Assert.*;
+import model.TemplateDB;
 
 import org.junit.After;
 import org.junit.AfterClass;
